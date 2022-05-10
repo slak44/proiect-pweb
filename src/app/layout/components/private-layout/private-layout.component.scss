@@ -1,4 +1,22 @@
+@use "colors" as *;
+
 :host {
   display: block;
   height: 100%;
+}
+
+.toolbar {
+  $height: 48px;
+
+  color: map-get(map-get($pweb-accent-palette, contrast), 500);
+  background-color: map-get($pweb-primary-palette, 500);
+  height: $height;
+  padding: 0 8px;
+
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
+
+  h2 {
+    margin: 0;
+    line-height: $height;
+  }
 }

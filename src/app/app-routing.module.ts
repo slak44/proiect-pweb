@@ -4,7 +4,7 @@ import { PrivateLayoutComponent } from './layout/components/private-layout/priva
 
 const routes: Routes = [
   {
-    path: '/',
+    path: '',
     component: PrivateLayoutComponent,
     children: [],
   },
