@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+@use "colors" as *;
+
+$pweb-fe-primary: mat.define-palette($pweb-primary-palette);
+$pweb-fe-accent: mat.define-palette($pweb-accent-palette, 200, 100, 400);
+
+$pweb-fe-warn: mat.define-palette(mat.$red-palette);
+
+$pweb-fe-theme: mat.define-light-theme((
+  color: (
+    primary: $pweb-fe-primary,
+    accent: $pweb-fe-accent,
+    warn: $pweb-fe-warn,
+  )
+));
+
+$pweb-typography: mat.define-typography-config();

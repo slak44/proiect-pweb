@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UserService } from '../../../base/services/user.service';
 import { Observable } from 'rxjs';
 import { User } from '../../../base/models/user.model';
+import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { UserSettingsDialogComponent } from '../user-settings-dialog/user-settings-dialog.component';
 
 interface SidenavRoute {
   name: string;
@@ -46,6 +48,23 @@ export class PrivateLayoutComponent {
 
   public readonly currentUser$: Observable<User | null> = this.userService.currentUser$;
 
-  constructor(private readonly userService: UserService) {
+  constructor(
+    private readonly userService: UserService,
+    private readonly dialog: MatDialog,
+  ) {
+  }
+
+  public openUserSettings(currentUser: User): void {
+    this.dialog.open(UserSettingsDialogComponent, {
+      width: '400px',
+      data: currentUser,
+      closeOnNavigation: true,
+      backdropClass: 'transparent-backdrop',
+      panelClass: 'no-padding',
+      position: {
+        top: '0',
+        right: '0',
+      },
+    });
   }
 }

@@ -1,0 +1,21 @@
+<div class="with-avatar">
+  <div class="texts">
+    <span class="username mat-subheading-2">{{ user.username }}</span>
+    <span class="mat-body-2 surface-medium-emphasis">{{ user.email }}</span>
+  </div>
+
+  <img [src]="user.picture" alt="profile picture"/>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="list-item" mat-ripple role="button">
+  <mat-icon fontSet="material-icons-outlined">logout</mat-icon>
+  <span>Logout</span>
+</div>
+
+<div class="list-item" mat-ripple role="button">
+  <mat-icon fontSet="material-icons-outlined">settings</mat-icon>
+  <span>Settings</span>
+</div>
+

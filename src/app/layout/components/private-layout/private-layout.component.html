@@ -2,6 +2,7 @@
   <h2>PWeb App Title</h2>
 
   <div *ngIf="currentUser$ | async as currentUser"
+       (click)="openUserSettings(currentUser)"
        mat-ripple
        class="current-user-button">
     <img [src]="currentUser.picture" alt="profile picture"/>
@@ -16,7 +17,7 @@
          role="button"
          [routerLink]="route.routerLink">
       <mat-icon fontSet="material-icons-outlined">{{ route.icon }}</mat-icon>
-      <span class="mat-body-2 surface-medium-emphasis">{{ route.name }}</span>
+      <span>{{ route.name }}</span>
     </div>
   </mat-sidenav>
 
