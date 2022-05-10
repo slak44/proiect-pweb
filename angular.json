@@ -7,7 +7,13 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "changeDetection": "OnPush",
+          "displayBlock": true,
+          "prefix": "pweb",
           "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "prefix": "pweb"
         },
         "@schematics/angular:application": {
           "strict": true
@@ -103,9 +109,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "pweb-fe"
+  "defaultProject": "pweb-fe",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
