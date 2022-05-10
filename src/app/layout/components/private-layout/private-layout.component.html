@@ -1,5 +1,11 @@
 <div class="toolbar">
   <h2>PWeb App Title</h2>
+
+  <div *ngIf="currentUser$ | async as currentUser"
+       mat-ripple
+       class="current-user-button">
+    <img [src]="currentUser.picture" alt="profile picture"/>
+  </div>
 </div>
 
 <mat-sidenav-container>

@@ -1,4 +1,5 @@
 @use "colors" as *;
+@use "mixins" as *;
 
 :host {
   display: flex;
@@ -13,6 +14,7 @@
   background-color: map-get($pweb-primary-palette, 500);
   height: $height;
   padding: 0 8px;
+  position: relative;
 
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
 
@@ -40,5 +42,19 @@
 
   .mat-icon {
     margin-right: 32px;
+  }
+}
+
+.current-user-button {
+  cursor: pointer;
+  z-index: 2;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  @include avatar(64px);
+
+  img {
+    @include avatar(64px);
   }
 }

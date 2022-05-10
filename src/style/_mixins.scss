@@ -1,0 +1,5 @@
+@mixin avatar($size) {
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+}

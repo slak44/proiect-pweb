@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UserService } from '../../../base/services/user.service';
+import { Observable } from 'rxjs';
+import { User } from '../../../base/models/user.model';
 
 interface SidenavRoute {
   name: string;
@@ -41,6 +44,8 @@ export class PrivateLayoutComponent {
     },
   ];
 
-  constructor() {
+  public readonly currentUser$: Observable<User | null> = this.userService.currentUser$;
+
+  constructor(private readonly userService: UserService) {
   }
 }
