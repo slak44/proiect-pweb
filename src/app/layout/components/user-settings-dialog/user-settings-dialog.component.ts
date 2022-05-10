@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { User } from '../../../base/models/user.model';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { LogoutDialogComponent } from '../logout-dialog/logout-dialog.component';
 
 @Component({
   selector: 'pweb-user-settings-dialog',
@@ -10,7 +11,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class UserSettingsDialogComponent {
   constructor(
+    private readonly dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public readonly user: User,
   ) {
+  }
+
+  public openLogout(): void {
+    this.dialog.open(LogoutDialogComponent);
   }
 }

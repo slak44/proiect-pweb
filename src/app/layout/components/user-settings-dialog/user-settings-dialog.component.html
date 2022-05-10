@@ -9,7 +9,10 @@
 
 <mat-divider></mat-divider>
 
-<div class="list-item" mat-ripple role="button">
+<div class="list-item"
+     mat-ripple
+     role="button"
+     (click)="openLogout()">
   <mat-icon fontSet="material-icons-outlined">logout</mat-icon>
   <span>Logout</span>
 </div>

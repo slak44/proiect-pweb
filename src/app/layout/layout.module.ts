@@ -10,11 +10,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserSettingsDialogComponent } from './components/user-settings-dialog/user-settings-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { LogoutDialogComponent } from './components/logout-dialog/logout-dialog.component';
 
 @NgModule({
   declarations: [
     PrivateLayoutComponent,
     UserSettingsDialogComponent,
+    LogoutDialogComponent,
   ],
   imports: [
     CommonModule,

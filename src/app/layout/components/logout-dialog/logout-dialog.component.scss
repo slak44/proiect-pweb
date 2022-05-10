@@ -1,0 +1,14 @@
+@use "colors" as *;
+
+:host {
+  display: block;
+}
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+}
+
+button {
+  color: map-get($pweb-primary-palette, 800);
+  text-transform: capitalize;
+}

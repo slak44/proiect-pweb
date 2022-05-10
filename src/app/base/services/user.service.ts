@@ -19,4 +19,8 @@ export class UserService {
       picture: '/assets/test.png'
     });
   }
+
+  public logout(): void {
+    // TODO
+  }
 }

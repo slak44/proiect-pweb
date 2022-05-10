@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UserService } from '../../../base/services/user.service';
 import { Observable } from 'rxjs';
 import { User } from '../../../base/models/user.model';
-import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { UserSettingsDialogComponent } from '../user-settings-dialog/user-settings-dialog.component';
 
 interface SidenavRoute {
