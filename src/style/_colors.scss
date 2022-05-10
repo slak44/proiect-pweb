@@ -1,5 +1,10 @@
-$dark-primary-text: rgba(black, 0.87);
-$light-primary-text: white;
+$dark-primary-text: rgba(0, 0, 0, 0.87);
+$light-primary-text: #FFFFFF;
+$surface-medium-emphasis: rgba(0, 0, 0, 0.6);
+
+.surface-medium-emphasis {
+  color: $surface-medium-emphasis;
+}
 
 $pweb-primary-palette: (
   50: #e3f2fd,

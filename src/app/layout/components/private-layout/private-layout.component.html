@@ -2,4 +2,19 @@
   <h2>PWeb App Title</h2>
 </div>
 
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <div *ngFor="let route of routes"
+         class="sidenav-route"
+         mat-ripple
+         role="button"
+         [routerLink]="route.routerLink">
+      <mat-icon fontSet="material-icons-outlined">{{ route.icon }}</mat-icon>
+      <span class="mat-body-2 surface-medium-emphasis">{{ route.name }}</span>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
