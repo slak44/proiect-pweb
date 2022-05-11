@@ -50,3 +50,24 @@
     @include avatar(64px);
   }
 }
+
+.mat-fab {
+  z-index: 2;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+
+  width: unset;
+  border-radius: 50px;
+
+  .fab-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+
+    span {
+      letter-spacing: 1.25px;
+    }
+  }
+}

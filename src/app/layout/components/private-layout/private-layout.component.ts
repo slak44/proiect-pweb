@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../../../base/models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { UserSettingsDialogComponent } from '../user-settings-dialog/user-settings-dialog.component';
+import { CreatePostService } from '../../services/create-post.service';
 
 interface SidenavRoute {
   name: string;
@@ -47,9 +48,11 @@ export class PrivateLayoutComponent {
   ];
 
   public readonly currentUser$: Observable<User | null> = this.userService.currentUser$;
+  public readonly showCreatePost$: Observable<boolean> = this.createPostService.showCreatePost$;
 
   constructor(
     private readonly userService: UserService,
+    private readonly createPostService: CreatePostService,
     private readonly dialog: MatDialog,
   ) {
   }
