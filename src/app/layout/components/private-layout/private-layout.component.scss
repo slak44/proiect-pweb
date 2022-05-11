@@ -47,6 +47,8 @@
   @include avatar(64px);
 
   img {
+    border: 1px map-get($pweb-accent-palette, 50) solid;
+
     @include avatar(64px);
   }
 }
