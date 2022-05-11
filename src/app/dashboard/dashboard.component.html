@@ -5,6 +5,8 @@
   <div class="content">
     <div class="post-section">
       <span class="mat-title">Your latest post</span>
+
+      <pweb-post *ngIf="latestPost$ | async as latestPost" [post]="latestPost"></pweb-post>
     </div>
 
     <div class="statistics-section">

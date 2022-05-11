@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Post } from '../base/models/post.model';
 
 @Component({
   selector: 'pweb-post',
@@ -7,6 +8,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent {
+  @Input() public post!: Post;
+
   constructor() {
   }
 }
