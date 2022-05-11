@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -9,7 +10,8 @@ import { DashboardComponent } from './dashboard.component';
     DashboardComponent
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    MatDividerModule,
+  ],
 })
 export class DashboardModule { }

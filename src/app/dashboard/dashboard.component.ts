@@ -1,16 +1,19 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UserService } from '../base/services/user.service';
+import { Observable } from 'rxjs';
+import { User } from '../base/models/user.model';
 
 @Component({
   selector: 'pweb-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
+  public readonly currentUser$: Observable<User | null> = this.userService.currentUser$;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private readonly userService: UserService
+  ) {
   }
-
 }

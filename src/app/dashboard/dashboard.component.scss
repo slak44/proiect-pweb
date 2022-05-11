@@ -1,3 +1,35 @@
+@use "theme" as *;
+
 :host {
   display: block;
+  padding: 16px;
+}
+
+.mat-display-3 {
+  font-family: $light-font-family;
+  margin-bottom: 16px;
+}
+
+.mat-divider {
+  margin-bottom: 16px;
+}
+
+.content {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 48px;
+
+  .post-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .statistics-section {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.mat-title {
+  margin-bottom: 16px;
 }

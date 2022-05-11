@@ -1,1 +1,14 @@
-<p>dashboard works!</p>
+<ng-container *ngIf="currentUser$ | async as currentUser">
+  <h1 class="mat-display-3">Welcome, {{ currentUser.username}}.</h1>
+  <mat-divider></mat-divider>
+
+  <div class="content">
+    <div class="post-section">
+      <span class="mat-title">Your latest post</span>
+    </div>
+
+    <div class="statistics-section">
+      <span class="mat-title">Statistics</span>
+    </div>
+  </div>
+</ng-container>
