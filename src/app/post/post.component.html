@@ -1,1 +1,88 @@
-<p>post works!</p>
+<mat-card>
+  <div class="type-line">
+    {{ postTypeNames[post.type] }}
+    —
+    {{ categoryNames[post.category] }}
+  </div>
+
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon fontSet="material-icons-outlined">{{ categoryIcons[post.category] }}</mat-icon>
+    </div>
+
+    <mat-card-title>
+      <span>{{ post.title }}</span>
+    </mat-card-title>
+
+    <button *ngIf="isOwned$ | async" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span>Edit {{ postTypeNames[post.type].toLowerCase() }} description</span>
+        <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">edit</mat-icon>
+      </button>
+      <button mat-menu-item>
+        <span>Retire {{ postTypeNames[post.type].toLowerCase() }}</span>
+        <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">check_circle_outline</mat-icon>
+      </button>
+      <button mat-menu-item>
+        <span>Delete</span>
+        <mat-icon class="delete" fontSet="material-icons-outlined">delete</mat-icon>
+      </button>
+    </mat-menu>
+  </mat-card-header>
+
+  <img *ngIf="post.imageUrl" mat-card-image [src]="post.imageUrl" alt="Post Image"/>
+
+  <mat-card-content>
+    <p class="description mat-body-1 surface-medium-emphasis">{{ post.description }}</p>
+
+    <mat-chip-list *ngIf="post.tags.length > 0" class="tags-container">
+      <mat-chip *ngFor="let tag of post.tags"
+                (removed)="removeTag(tag)">
+        <span class="mat-body-1">#{{ tag.text }}</span>
+        <mat-icon *ngIf="isOwned$ | async" matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+      <mat-chip *ngIf="isOwned$ | async"
+                class="add-tags"
+                (click)="$event.stopPropagation(); addTags()"
+                [removable]="false">
+        <mat-icon matChipAvatar>add</mat-icon>
+        <span class="mat-body-1">Add tags</span>
+      </mat-chip>
+    </mat-chip-list>
+
+    <div class="interaction-row surface-medium-emphasis">
+      <span>{{ post.interactions }} {{ interactionCountTexts[post.type] }}</span>
+      <span>{{ post.upvotes }} upvotes</span>
+    </div>
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-actions>
+    <button class="interaction-button"
+            mat-flat-button
+            [disabled]="isOwned$ | async"
+            (click)="interact()">
+      {{ interactionTexts[post.type] }}
+    </button>
+
+    <button mat-icon-button
+            [class.upvote]="post.upvoted || (isOwned$ | async)"
+            [disabled]="isOwned$ | async"
+            (click)="upvote()">
+      <mat-icon [fontSet]="post.upvoted ? 'material-icons' : 'material-icons-outlined'">thumb_up</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            [class.downvote]="post.downvoted"
+            [disabled]="isOwned$ | async"
+            (click)="downvote()">
+      <mat-icon [fontSet]="post.downvoted ? 'material-icons' : 'material-icons-outlined'">thumb_down</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

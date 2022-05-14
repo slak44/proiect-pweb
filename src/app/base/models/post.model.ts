@@ -23,6 +23,8 @@ export interface Post {
   description: string;
   imageUrl?: string;
   upvotes: number;
+  upvoted: boolean;
+  downvoted: boolean;
   interactions: number;
   isRetired: boolean;
   tags: Tag[];

@@ -1,3 +1,73 @@
+@use "theme" as *;
+@use "colors" as *;
+
 :host {
   display: block;
+  max-width: 400px;
+}
+
+.type-line {
+  @include overline;
+
+  margin-bottom: 8px;
+}
+
+.mat-card-avatar {
+  .mat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+  }
+}
+
+.mat-menu-item {
+  min-width: 280px;
+  display: flex;
+  align-items: center;
+
+  .mat-icon {
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+
+.delete {
+  color: $error-red;
+}
+
+.description {
+  margin-bottom: 16px;
+}
+
+.tags-container {
+  display: block;
+  margin-bottom: 16px;
+
+  .add-tags {
+    cursor: pointer;
+  }
+}
+
+.interaction-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.interaction-button {
+  color: map-get($pweb-primary-palette, 800);
+  text-transform: uppercase;
+
+  margin-right: auto;
+}
+
+.mat-card-actions {
+  display: flex;
+}
+
+.upvote {
+  color: map-get($pweb-primary-palette, 800) !important;
+}
+
+.downvote {
+  color: $error-red;
 }
