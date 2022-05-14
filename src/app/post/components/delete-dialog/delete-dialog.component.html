@@ -1,0 +1,15 @@
+<p mat-dialog-title class="mat-body">Are you sure you want to delete this post?</p>
+
+<mat-dialog-content>
+  <span class="mat-body-1 surface-medium-emphasis">This action cannot be reversed. The post will be lost forever!</span>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-flat-button [mat-dialog-close]="false">
+    GO BACK
+  </button>
+
+  <button mat-flat-button color="warn" [mat-dialog-close]="true">
+    DELETE FOREVER
+  </button>
+</mat-dialog-actions>

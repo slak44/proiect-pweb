@@ -8,10 +8,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { EditDescriptionDialogComponent } from './components/edit-description-dialog/edit-description-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RetireDialogComponent } from './components/retire-dialog/retire-dialog.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
     PostComponent,
+    EditDescriptionDialogComponent,
+    RetireDialogComponent,
+    DeleteDialogComponent,
   ],
   exports: [
     PostComponent
@@ -25,6 +35,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatDividerModule,
     MatMenuModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
 })
 export class PostModule {

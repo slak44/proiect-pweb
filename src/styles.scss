@@ -32,3 +32,12 @@ body {
 .no-padding > .mat-dialog-container {
   padding: 0;
 }
+
+.mat-dialog-actions {
+  justify-content: flex-end;
+
+  button {
+    color: map-get($pweb-primary-palette, 800);
+    text-transform: capitalize;
+  }
+}

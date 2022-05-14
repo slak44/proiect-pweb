@@ -1,0 +1,19 @@
+<p mat-dialog-title class="mat-body">Edit description</p>
+
+<mat-dialog-content>
+  <span class="mat-body-1 surface-medium-emphasis">{{ data.post.title }}</span>
+
+  <mat-form-field appearance="outline" color="primary">
+    <textarea matInput rows="5" [formControl]="newDescControl"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-flat-button mat-dialog-close>
+    CANCEL
+  </button>
+
+  <button mat-flat-button mat-dialog-close (click)="change()">
+    EDIT
+  </button>
+</mat-dialog-actions>

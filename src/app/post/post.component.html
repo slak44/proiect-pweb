@@ -19,15 +19,15 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="editDescription()">
         <span>Edit {{ postTypeNames[post.type].toLowerCase() }} description</span>
         <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">edit</mat-icon>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="retire()">
         <span>Retire {{ postTypeNames[post.type].toLowerCase() }}</span>
         <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">check_circle_outline</mat-icon>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="deletePost()">
         <span>Delete</span>
         <mat-icon class="delete" fontSet="material-icons-outlined">delete</mat-icon>
       </button>
