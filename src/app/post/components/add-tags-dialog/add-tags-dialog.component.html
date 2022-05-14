@@ -1,0 +1,21 @@
+<p mat-dialog-title class="mat-body">Add tags</p>
+
+<mat-dialog-content>
+  <span class="mat-body-1 surface-medium-emphasis">
+    Type in the tags you want. You can add multiple tags at once by using commas: tag1, tag2
+  </span>
+
+  <mat-form-field appearance="outline" color="primary">
+    <textarea matInput rows="5" [formControl]="tagsControl"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-flat-button mat-dialog-close>
+    CANCEL
+  </button>
+
+  <button [disabled]="!tagsControl.value" mat-flat-button (click)="addTags()">
+    ADD TAGS
+  </button>
+</mat-dialog-actions>

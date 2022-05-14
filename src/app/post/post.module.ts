@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RetireDialogComponent } from './components/retire-dialog/retire-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { AddTagsDialogComponent } from './components/add-tags-dialog/add-tags-dialog.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     EditDescriptionDialogComponent,
     RetireDialogComponent,
     DeleteDialogComponent,
+    AddTagsDialogComponent,
   ],
   exports: [
     PostComponent

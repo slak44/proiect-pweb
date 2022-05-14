@@ -11,6 +11,7 @@ import {
 } from './components/edit-description-dialog/edit-description-dialog.component';
 import { RetireDialogComponent } from './components/retire-dialog/retire-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { AddTagsDialogComponent } from './components/add-tags-dialog/add-tags-dialog.component';
 
 @Component({
   selector: 'pweb-post',
@@ -104,6 +105,20 @@ export class PostComponent {
     });
   }
 
+  public addTags(): void {
+    const ref = this.dialog.open<AddTagsDialogComponent, unknown, string[]>(AddTagsDialogComponent, {
+      width: '600px',
+      maxWidth: '100vw',
+    });
+
+    ref.afterClosed().subscribe(addedTags => {
+      if (!addedTags) {
+        return;
+      }
+
+      // FIXME add tags
+    });
+  }
 
   public removeTag(tag: Tag): void {
     this.postService.removeTag(this.post.id, tag.id).subscribe({
@@ -125,10 +140,6 @@ export class PostComponent {
   }
 
   public downvote(): void {
-    // FIXME
-  }
-
-  public addTags(): void {
     // FIXME
   }
 }
