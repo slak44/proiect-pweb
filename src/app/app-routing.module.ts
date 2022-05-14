@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PrivateLayoutComponent } from './layout/components/private-layout/private-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AllPostsComponent } from './all-posts/all-posts.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+      },
+      {
+        path: 'all-posts',
+        component: AllPostsComponent,
       },
     ],
   },

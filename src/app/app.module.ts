@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { MatButtonModule } from '@angular/material/button';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AllPostsModule } from './all-posts/all-posts.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     LayoutModule,
     DashboardModule,
     MatButtonModule,
+    AllPostsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

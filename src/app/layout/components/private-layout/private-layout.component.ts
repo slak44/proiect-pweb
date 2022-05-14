@@ -33,7 +33,7 @@ export class PrivateLayoutComponent {
     {
       name: 'All Posts',
       icon: 'event',
-      routerLink: 'TODO',
+      routerLink: 'all-posts',
     },
     {
       name: 'Recent Posts',

@@ -1,0 +1,23 @@
+@use "theme" as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.mat-display-3 {
+  font-family: $light-font-family;
+  margin-bottom: 16px;
+}
+
+.mat-divider {
+  margin-bottom: 16px;
+}
+
+.listing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
