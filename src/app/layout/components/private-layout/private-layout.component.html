@@ -24,7 +24,11 @@
   <mat-sidenav-content>
     <router-outlet></router-outlet>
 
-    <button mat-fab color="accent" routerLink="/create-post" *ngIf="showCreatePost$ | async">
+    <button mat-fab
+            color="accent"
+            class="wide-fab"
+            routerLink="/create-post"
+            *ngIf="showCreatePost$ | async">
       <div class="fab-content">
         <mat-icon fontSet="material-icons-outlined">add</mat-icon>
         <span>CREATE</span>

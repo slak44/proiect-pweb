@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
-import { CreatePost, Post, PostCategory, PostType } from '../models/post.model';
+import { CreatePost, Interaction, Post, PostCategory, PostType } from '../models/post.model';
 
 @Injectable({
   providedIn: 'root',
@@ -86,5 +86,12 @@ export class PostService {
       isRetired: false,
       ownerId: 123,
     }).pipe(delay(2000));
+  }
+
+  public interact(postId: number, interaction: Interaction): Observable<void> {
+    // FIXME
+    void postId;
+    void interaction;
+    return of(void null);
   }
 }

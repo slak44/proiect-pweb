@@ -18,6 +18,8 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
 import { AddTagsDialogComponent } from './components/add-tags-dialog/add-tags-dialog.component';
 import { PostBuilderComponent } from './components/post-builder/post-builder.component';
 import { MatRippleModule } from '@angular/material/core';
+import { InteractionSheetComponent } from './components/interaction-sheet/interaction-sheet.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { MatRippleModule } from '@angular/material/core';
     DeleteDialogComponent,
     AddTagsDialogComponent,
     PostBuilderComponent,
+    InteractionSheetComponent,
   ],
   exports: [
     PostComponent,
@@ -46,6 +49,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatInputModule,
     ReactiveFormsModule,
     MatRippleModule,
+    MatBottomSheetModule,
   ],
 })
 export class PostModule {

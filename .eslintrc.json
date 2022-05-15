@@ -46,6 +46,12 @@
             ]
           }
         ],
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ],
         "@typescript-eslint/restrict-template-expressions": [
           "error",
           {

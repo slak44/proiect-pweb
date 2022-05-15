@@ -33,3 +33,8 @@ export interface CreatePost {
   image?: File;
   tags: string[];
 }
+
+export interface Interaction {
+  text: string;
+  phone: string;
+}

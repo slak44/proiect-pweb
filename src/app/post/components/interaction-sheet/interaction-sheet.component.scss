@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  padding: 16px;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}
+
+.mat-display-1 {
+  margin-bottom: 0;
+}
+
+.mat-divider {
+  margin-bottom: 16px;
+}
+
+.mat-form-field {
+  .mat-icon {
+    margin-right: 4px;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}

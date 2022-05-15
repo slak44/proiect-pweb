@@ -46,3 +46,20 @@ body {
   flex-grow: 1;
   padding: 8px 16px;
 }
+
+.mat-fab.wide-fab {
+  width: unset;
+  border-radius: 50px;
+
+  .fab-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+
+    span {
+      letter-spacing: 1.25px;
+      text-transform: uppercase;
+    }
+  }
+}

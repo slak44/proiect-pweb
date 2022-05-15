@@ -1,0 +1,34 @@
+<div class="heading">
+  <h1 class="mat-display-1">{{ titles[data.type] }}</h1>
+
+  <button mat-icon-button>
+    <mat-icon class="close-icon">close</mat-icon>
+  </button>
+</div>
+
+<mat-divider></mat-divider>
+
+<form [formGroup]="interactionForm" (ngSubmit)="submitInteraction()">
+  <mat-form-field color="accent" appearance="fill">
+    <mat-label>Phone Number</mat-label>
+
+    <mat-icon fontSet="material-icons-outlined" matPrefix>phone</mat-icon>
+
+    <input type="tel" matInput formControlName="phone" />
+  </mat-form-field>
+
+  <mat-form-field color="accent" appearance="outline">
+    <textarea [placeholder]="placeholders[data.type]" matInput rows="5" formControlName="text"></textarea>
+  </mat-form-field>
+
+  <button mat-fab
+          color="accent"
+          class="wide-fab"
+          type="submit"
+          [disabled]="interactionForm.invalid">
+    <div class="fab-content">
+      <mat-icon fontSet="material-icons-outlined">done_all</mat-icon>
+      <span>{{ interactionTexts[data.type] }}</span>
+    </div>
+  </button>
+</form>

@@ -10,6 +10,8 @@ import { RetireDialogComponent } from './components/retire-dialog/retire-dialog.
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { AddTagsDialogComponent } from './components/add-tags-dialog/add-tags-dialog.component';
 import { categoryIcons, categoryNames, interactionCountTexts, interactionTexts, postTypeNames } from './post-texts';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { InteractionSheetComponent } from './components/interaction-sheet/interaction-sheet.component';
 
 @Component({
   selector: 'pweb-post',
@@ -35,6 +37,7 @@ export class PostComponent {
     private readonly userService: UserService,
     private readonly matSnackBar: MatSnackBar,
     private readonly dialog: MatDialog,
+    private readonly bottomSheet: MatBottomSheet,
   ) {
   }
 
@@ -102,7 +105,9 @@ export class PostComponent {
   public removeTag(tag: string): void {
     this.postService.removeTag(this.post.id, tag).subscribe({
       next: () => {
-        const ref = this.matSnackBar.open(`Tag removed: #${tag}`, 'UNDO');
+        const ref = this.matSnackBar.open(`Tag removed: #${tag}`, 'UNDO', {
+          duration: 3000
+        });
         ref.onAction().subscribe(() => {
           // FIXME
         });
@@ -111,7 +116,12 @@ export class PostComponent {
   }
 
   public interact(): void {
-    // FIXME
+    this.bottomSheet.open(InteractionSheetComponent, {
+      data: {
+        type: this.post.type,
+        postId: this.post.id,
+      },
+    });
   }
 
   public upvote(): void {
