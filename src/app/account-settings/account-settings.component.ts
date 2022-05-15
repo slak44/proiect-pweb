@@ -6,6 +6,12 @@ import { User, UserType } from '../base/models/user.model';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+interface FormDetails {
+  username: string;
+  email: string;
+}
 
 @Component({
   selector: 'pweb-account-settings',
@@ -21,14 +27,14 @@ export class AccountSettingsComponent implements OnInit {
   );
 
   private readonly adminUserId$: Observable<number> = this.activatedRoute.params.pipe(
-    map(({ userId }) => parseInt(userId as string, 10))
+    map(({ userId }) => parseInt(userId as string, 10)),
   );
 
   public readonly targetUser$: Observable<User | null> = this.isAdminView$.pipe(
     switchMap(isAdminView =>
       isAdminView
         ? this.adminUserId$.pipe(switchMap(userId => this.userService.getUserById(userId)))
-        : this.userService.currentUser$
+        : this.userService.currentUser$,
     ),
   );
 
@@ -54,18 +60,20 @@ export class AccountSettingsComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly sanitizer: DomSanitizer,
     private readonly activatedRoute: ActivatedRoute,
+    private readonly matSnackBar: MatSnackBar,
   ) {
   }
 
   public ngOnInit(): void {
     this.targetUser$.pipe(
       first((user): user is User => !!user),
-    ).subscribe(({ username, email, type }) => {
+    ).subscribe(({ id, username, email, type }) => {
       this.accountDetailsForm.setValue({ username, email });
 
-      this.accountTypeControl.valueChanges.subscribe(accountType => {
-        // FIXME
-        void accountType;
+      this.accountTypeControl.valueChanges.pipe(
+        switchMap((userType: UserType) => this.userService.changeAccountType(id, userType)),
+      ).subscribe(() => {
+        this.matSnackBar.open(`User type changed`, undefined, { duration: 3000 });
       });
 
       this.accountTypeControl.setValue(type);
@@ -73,17 +81,28 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   public updateAccountDetails(): void {
-    // FIXME
+    this.targetUser$.pipe(
+      first(),
+      switchMap(targetUser => {
+        const { username, email } = this.accountDetailsForm.value as FormDetails;
+
+        return this.userService.updateUserDetails(targetUser!.id, username, email, this.newImageFile);
+      })
+    ).subscribe();
   }
 
   public userVerifiedChanged(event: MatSlideToggleChange): void {
-    // FIXME
-    void event;
+    this.targetUser$.pipe(
+      first(),
+      switchMap(targetUser => this.userService.updateVerifiedState(targetUser!.id, event.checked))
+    ).subscribe();
   }
 
   public userEnabledChanged(event: MatSlideToggleChange): void {
-    // FIXME
-    void event;
+    this.targetUser$.pipe(
+      first(),
+      switchMap(targetUser => this.userService.updateEnabledState(targetUser!.id, event.checked))
+    ).subscribe();
   }
 
   public changeImage(): void {

@@ -13,6 +13,10 @@ export class UserService {
   public readonly isCurrentUserAdmin$: Observable<boolean> = of(false); // FIXME
 
   constructor() {
+    this.refreshCurrentUser();
+  }
+
+  public refreshCurrentUser(): void {
     // FIXME:
     this.currentUserSubject.next({
       id: 123,
@@ -57,5 +61,34 @@ export class UserService {
     return of([
       a, a, a, a, a,
     ]);
+  }
+
+  public changeAccountType(userId: number, type: UserType): Observable<void> {
+    // FIXME
+    void userId;
+    void type;
+    return of(void null);
+  }
+
+  public updateEnabledState(userId: number, enabled: boolean): Observable<void> {
+    // FIXME
+    void userId;
+    void enabled;
+    return of(void null);
+  }
+
+  public updateVerifiedState(userId: number, verified: boolean): Observable<void> {
+    // FIXME
+    void userId;
+    void verified;
+    return of(void null);
+  }
+
+  public updateUserDetails(userId: number, username: string, email: string, picture?: File): Observable<void> {
+    // FIXME
+    void username;
+    void email;
+    void picture;
+    return of(void null);
   }
 }
