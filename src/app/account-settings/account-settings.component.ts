@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../base/services/user.service';
-import { map, Observable } from 'rxjs';
+import { first, map, NEVER, Observable, switchMap } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserType } from '../base/models/user.model';
+import { User, UserType } from '../base/models/user.model';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -17,16 +17,17 @@ export class AccountSettingsComponent implements OnInit {
   @ViewChild('fileInput') private readonly fileInput!: ElementRef<HTMLInputElement>;
 
   public readonly isAdminView$: Observable<boolean> = this.activatedRoute.url.pipe(
-    map(segments => segments.some(segment => segment.path === 'admin'))
+    map(segments => segments.some(segment => segment.path === 'admin')),
   );
 
-  public readonly pictureUrl$: Observable<string | undefined> = this.userService.currentUser$.pipe(
-    map(currentUser => currentUser?.picture),
+  // FIXME never
+  public readonly targetUser$: Observable<User | null> = this.isAdminView$.pipe(
+    switchMap(isAdminView => isAdminView ? NEVER : this.userService.currentUser$),
   );
 
   public readonly accountDetailsForm: FormGroup = this.formBuilder.group({
     username: ['', Validators.required],
-    email: ['', Validators.required]
+    email: ['', Validators.required],
   });
 
   private newImageFile?: File;
@@ -50,14 +51,18 @@ export class AccountSettingsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const { username, email, type } = this.userService.currentUserSnapshot!;
-    this.accountDetailsForm.setValue({ username, email });
+    this.targetUser$.pipe(
+      first((user): user is User => !!user),
+    ).subscribe(({ username, email, type }) => {
+      this.accountDetailsForm.setValue({ username, email });
 
-    this.accountTypeControl.valueChanges.subscribe(accountType => {
-      // FIXME
+      this.accountTypeControl.valueChanges.subscribe(accountType => {
+        // FIXME
+        void accountType;
+      });
+
+      this.accountTypeControl.setValue(type);
     });
-
-    this.accountTypeControl.setValue(type);
   }
 
   public updateAccountDetails(): void {
@@ -66,10 +71,12 @@ export class AccountSettingsComponent implements OnInit {
 
   public userVerifiedChanged(event: MatSlideToggleChange): void {
     // FIXME
+    void event;
   }
 
   public userEnabledChanged(event: MatSlideToggleChange): void {
     // FIXME
+    void event;
   }
 
   public changeImage(): void {

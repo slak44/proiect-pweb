@@ -1,16 +1,16 @@
 <h1 class="mat-display-3">Account Settings</h1>
 <mat-divider></mat-divider>
 
-<form [formGroup]="accountDetailsForm" (ngSubmit)="updateAccountDetails()">
+<form *ngIf="targetUser$ | async as targetUser"
+      [formGroup]="accountDetailsForm"
+      (ngSubmit)="updateAccountDetails()">
   <h6 class="mat-title">Account Details</h6>
 
   <div class="picture-row">
     <div class="picture-item" mat-ripple (click)="changeImage()">
       <input #fileInput hidden type="file" accept="image/*" (change)="onImageAdded()" />
 
-      <ng-container *ngIf="{ pictureUrl: pictureUrl$ | async } as data">
-        <img *ngIf="data.pictureUrl || newImageUrl" [src]="newImageUrl || data.pictureUrl" alt="Profile Picture" />
-      </ng-container>
+      <img *ngIf="targetUser.picture || newImageUrl" [src]="newImageUrl || targetUser.picture" alt="Profile Picture" />
 
       <div class="edit-overlay">
         <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
