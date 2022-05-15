@@ -3,7 +3,7 @@
 
 <div class="listing">
   <div class="post-container" *ngFor="let post of myPosts$ | async">
-    <pweb-post [post]="post" (deleted)="deletePost(post)"></pweb-post>
+    <pweb-post [post]="post" (updated)="updatePost($event)" (deleted)="deletePost(post)"></pweb-post>
 
     <div class="interactions-container">
       <p class="mat-display-1">{{ tableTexts[post.type] }}</p>

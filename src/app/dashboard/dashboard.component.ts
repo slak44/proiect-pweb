@@ -33,4 +33,8 @@ export class DashboardComponent implements OnInit {
   public refreshLatestPost(): void {
     this.refreshLatestSubject.next();
   }
+
+  public updatePost(): void {
+    this.refreshLatestSubject.next();
+  }
 }

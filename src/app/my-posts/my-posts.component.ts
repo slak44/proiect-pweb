@@ -37,6 +37,13 @@ export class MyPostsComponent implements OnInit {
     this.bottomSheet.open(InteractionDataSheetComponent, { data: { interaction, type } });
   }
 
+  public updatePost(updated: OwnedPost): void {
+    const idx = this.myPostsSubject.value.findIndex((post) => post.id === updated.id);
+    const newPosts = [...this.myPostsSubject.value];
+    newPosts.splice(idx, 1, updated);
+    this.myPostsSubject.next(newPosts);
+  }
+
   public deletePost(deleted: Post): void {
     this.myPostsSubject.next(this.myPostsSubject.value.filter(post => post !== deleted));
   }

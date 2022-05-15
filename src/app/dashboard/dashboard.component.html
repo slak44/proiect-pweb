@@ -8,6 +8,7 @@
 
       <pweb-post *ngIf="latestPost$ | async as latestPost"
                  [post]="latestPost"
+                 (updated)="refreshLatestPost()"
                  (deleted)="refreshLatestPost()"></pweb-post>
     </div>
 

@@ -19,10 +19,10 @@ import { InteractionSheetComponent } from './components/interaction-sheet/intera
   styleUrls: ['./post.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PostComponent {
-  @Input() public post!: Post;
+export class PostComponent<T extends Post> {
+  @Input() public post!: T;
   @Output() public deleted: EventEmitter<void> = new EventEmitter<void>();
-  @Output() public updated: EventEmitter<Post> = new EventEmitter<Post>();
+  @Output() public updated: EventEmitter<T> = new EventEmitter<T>();
 
   public readonly isOwned$: Observable<boolean> = combineLatest([
     this.userService.currentUser$.pipe(
@@ -50,7 +50,7 @@ export class PostComponent {
 
   private editDescription(newDescription: string): void {
     this.postService.editDescription(this.post.id, newDescription).subscribe(() => {
-      const newPost: Post = { ...this.post, description: newDescription };
+      const newPost: T = { ...this.post, description: newDescription };
       this.updated.emit(newPost);
     });
   }
@@ -81,7 +81,7 @@ export class PostComponent {
 
       this.postService.retirePost(this.post.id).subscribe({
         next: () => {
-          const newPost: Post = { ...this.post, isRetired: true };
+          const newPost: T = { ...this.post, isRetired: true };
           this.updated.emit(newPost);
 
           this.matSnackBar.open('Post retired', undefined, { duration: 3000 });
@@ -113,7 +113,7 @@ export class PostComponent {
   private addTags(addedTags: string[]): void {
     this.postService.addTags(this.post.id, addedTags).subscribe({
       next: () => {
-        const newPost: Post = { ...this.post, tags: [...this.post.tags, ...addedTags] };
+        const newPost: T = { ...this.post, tags: [...this.post.tags, ...addedTags] };
         this.updated.emit(newPost);
 
         const tagsText = addedTags.map(tag => `#${tag}`).join(', ');
@@ -140,7 +140,7 @@ export class PostComponent {
   public removeTag(removed: string): void {
     this.postService.removeTag(this.post.id, removed).subscribe({
       next: () => {
-        const newPost: Post = { ...this.post, tags: this.post.tags.filter(tag => tag !== removed) };
+        const newPost: T = { ...this.post, tags: this.post.tags.filter(tag => tag !== removed) };
         this.updated.emit(newPost);
 
         this.matSnackBar.open(`Tag removed: #${removed}`, undefined, { duration: 3000 });
@@ -156,7 +156,7 @@ export class PostComponent {
       },
     }).afterDismissed().subscribe(didInteract => {
       if (didInteract) {
-        const newPost: Post = { ...this.post, interactionCount: this.post.interactionCount + 1 };
+        const newPost: T = { ...this.post, interactionCount: this.post.interactionCount + 1 };
         this.updated.emit(newPost);
       }
     });
@@ -165,9 +165,9 @@ export class PostComponent {
   public upvote(): void {
     this.postService.upvote(this.post.id).subscribe({
       next: () => {
-        const notUpvoted = this.post.downvoted ? this.post.upvotes + 2 : this.post.upvotes + 1
+        const notUpvoted = this.post.downvoted ? this.post.upvotes + 2 : this.post.upvotes + 1;
 
-        const newPost: Post = {
+        const newPost: T = {
           ...this.post,
           upvotes: this.post.upvoted ? this.post.upvotes - 1 : notUpvoted,
           upvoted: !this.post.upvoted,
@@ -183,7 +183,7 @@ export class PostComponent {
       next: () => {
         const notDownvoted = this.post.upvoted ? this.post.upvotes - 2 : this.post.upvotes - 1;
 
-        const newPost: Post = {
+        const newPost: T = {
           ...this.post,
           upvotes: this.post.downvoted ? this.post.upvotes + 1 : notDownvoted,
           downvoted: !this.post.downvoted,
