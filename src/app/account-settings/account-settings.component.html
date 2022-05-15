@@ -1,0 +1,67 @@
+<h1 class="mat-display-3">Account Settings</h1>
+<mat-divider></mat-divider>
+
+<form [formGroup]="accountDetailsForm" (ngSubmit)="updateAccountDetails()">
+  <h6 class="mat-title">Account Details</h6>
+
+  <div class="picture-row">
+    <div class="picture-item" mat-ripple (click)="changeImage()">
+      <input #fileInput hidden type="file" accept="image/*" (change)="onImageAdded()" />
+
+      <ng-container *ngIf="{ pictureUrl: pictureUrl$ | async } as data">
+        <img *ngIf="data.pictureUrl || newImageUrl" [src]="newImageUrl || data.pictureUrl" alt="Profile Picture" />
+      </ng-container>
+
+      <div class="edit-overlay">
+        <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+      </div>
+    </div>
+
+    <mat-form-field appearance="fill" color="accent">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="fill" color="accent">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+
+  <button mat-flat-button
+          type="submit"
+          color="accent"
+          [disabled]="(accountDetailsForm.invalid || accountDetailsForm.pristine) && !this.newImageUrl">
+    <mat-icon fontSet="material-icons-outlined">save</mat-icon>
+    <span>Save</span>
+  </button>
+</form>
+
+<ng-container *ngIf="!(isAdminView$ | async)">
+  <mat-divider></mat-divider>
+
+  <h6 class="mat-title">Change Password</h6>
+
+  <!-- FIXME -->
+</ng-container>
+
+<ng-container *ngIf="isAdminView$ | async">
+  <mat-divider></mat-divider>
+
+  <h6 class="mat-title">Admin Options</h6>
+
+  <div class="admin-options">
+    <mat-slide-toggle color="accent" (change)="userVerifiedChanged($event)">Mark user verified</mat-slide-toggle>
+    <mat-slide-toggle color="accent" (change)="userEnabledChanged($event)">Enable user</mat-slide-toggle>
+
+    <mat-form-field appearance="fill" color="accent">
+      <mat-label>Account Type</mat-label>
+
+      <mat-select [formControl]="accountTypeControl">
+        <mat-option *ngFor="let type of userTypes" [value]="type">
+          {{ userTypeText[type] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</ng-container>

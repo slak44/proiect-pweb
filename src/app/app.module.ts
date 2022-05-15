@@ -9,6 +9,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { AllPostsModule } from './all-posts/all-posts.module';
 import { CreatePostModule } from './create-post/create-post.module';
 import { MyPostsModule } from './my-posts/my-posts.module';
+import { AccountSettingsModule } from './account-settings/account-settings.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MyPostsModule } from './my-posts/my-posts.module';
     AllPostsModule,
     CreatePostModule,
     MyPostsModule,
+    AccountSettingsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,88 @@
+@use "theme" as *;
+@use "mixins" as *;
+@use "colors" as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.mat-display-3 {
+  font-family: $light-font-family;
+  margin-bottom: 16px;
+}
+
+.mat-divider {
+  margin-bottom: 16px;
+}
+
+.mat-title {
+  margin-bottom: 16px;
+}
+
+form,
+.admin-options {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 400px;
+}
+
+.picture-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.picture-item {
+  position: relative;
+
+  display: flex;
+
+  background-color: $black-selected;
+  cursor: pointer;
+
+  flex: 0 0 64px;
+  @include avatar(64px);
+
+  img {
+    flex: 0 0 64px;
+    @include avatar(64px);
+
+    border: 1px map-get($pweb-accent-palette, 50) solid;
+  }
+
+  .edit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include avatar(64px);
+    background-color: rgba(0, 0, 0, 0.30);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .mat-icon {
+      color: map-get($pweb-accent-palette, 200);
+    }
+  }
+}
+
+button {
+  width: fit-content;
+}
+
+.mat-flat-button {
+  margin-bottom: 16px;
+  text-transform: uppercase;
+
+  .mat-icon {
+    margin-right: 4px;
+  }
+}
+
+.mat-slide-toggle {
+  margin-bottom: 16px;
+}
