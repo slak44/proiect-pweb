@@ -9,11 +9,6 @@ export enum PostCategory {
   FOOD
 }
 
-export interface Tag {
-  id: number;
-  text: string;
-}
-
 export interface Post {
   id: number;
   ownerId: number;
@@ -27,5 +22,14 @@ export interface Post {
   downvoted: boolean;
   interactions: number;
   isRetired: boolean;
-  tags: Tag[];
+  tags: string[];
+}
+
+export interface CreatePost {
+  type: PostType;
+  category: PostCategory;
+  title: string;
+  description: string;
+  image?: File;
+  tags: string[];
 }

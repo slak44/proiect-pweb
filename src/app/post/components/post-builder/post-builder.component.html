@@ -1,0 +1,67 @@
+<mat-card *ngIf="createPost$ | async as createPost">
+  <div class="type-line">
+    {{ postTypeNames[type] }}
+    —
+    {{ categoryNames[category] }}
+  </div>
+
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon fontSet="material-icons-outlined">{{ categoryIcons[category] }}</mat-icon>
+    </div>
+
+    <mat-card-title>
+      <span>{{ createPost.title || 'Add a title!' }}</span>
+    </mat-card-title>
+  </mat-card-header>
+
+  <button mat-flat-button color="primary" class="edit-title" (click)="editTitle()">
+    <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+    <span>Edit title</span>
+  </button>
+
+  <img *ngIf="imageUrl else selectImage"
+       mat-card-image
+       [src]="imageUrl"
+       alt="Post Image"
+       (click)="addImage()"/>
+
+  <input #fileInput hidden type="file" accept="image/*" (change)="onImageAdded()" />
+
+  <ng-template #selectImage>
+    <div mat-card-image
+         class="select-image"
+         mat-ripple
+         role="button"
+         (click)="addImage()">
+      <mat-icon fontSet="material-icons-outlined">image</mat-icon>
+      <span>Add Image</span>
+    </div>
+  </ng-template>
+
+  <mat-card-content>
+    <p class="description mat-body-1 surface-medium-emphasis">
+      {{ createPost.description || 'Add your description!' }}
+    </p>
+
+    <button mat-flat-button color="primary" (click)="editDescription()">
+      <mat-icon fontSet="material-icons-outlined">edit</mat-icon>
+      <span>Edit description</span>
+    </button>
+
+    <mat-chip-list class="tags-container">
+      <mat-chip *ngFor="let tag of (createPost.tags || [])"
+                (removed)="removeTag(tag)">
+        <span class="mat-body-1">#{{ tag }}</span>
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+      <mat-chip class="add-tags"
+                (click)="$event.stopPropagation(); addTags()"
+                [removable]="false">
+        <mat-icon matChipAvatar>add</mat-icon>
+        <span class="mat-body-1">Add tags</span>
+      </mat-chip>
+    </mat-chip-list>
+  </mat-card-content>
+</mat-card>

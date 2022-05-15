@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Post, PostCategory, PostType, Tag } from '../models/post.model';
+import { delay, Observable, of } from 'rxjs';
+import { CreatePost, Post, PostCategory, PostType } from '../models/post.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,10 +26,10 @@ export class PostService {
       downvoted: false,
       interactions: 2,
       tags: [
-        { id: 1, text: 'cool' },
-        { id: 2, text: 'Very Important And Stuff' },
-        { id: 3, text: 'puckfutin' },
-        { id: 4, text: 'hello' },
+        'cool',
+        'Very Important And Stuff',
+        'puckfutin',
+        'hello',
       ],
     });
   }
@@ -50,26 +50,41 @@ export class PostService {
       downvoted: false,
       interactions: 2,
       tags: [
-        { id: 1, text: 'cool' },
-        { id: 2, text: 'Very Important And Stuff' },
-        { id: 3, text: 'puckfutin' },
-        { id: 4, text: 'hello' },
+        'cool',
+        'Very Important And Stuff',
+        'puckfutin',
+        'hello',
       ],
     };
 
     return of([a, a, a, a, a, a, a, a, a]);
   }
 
-  public addTag(postId: number, tagText: string): Observable<Tag> {
+  public addTag(postId: number, tagText: string): Observable<void> {
     // FIXME
     void postId;
-    return of({ id: 1234, text: tagText });
+    void tagText;
+    return of(void null);
   }
 
-  public removeTag(postId: number, tagId: number): Observable<void> {
+  public removeTag(postId: number, tagText: string): Observable<void> {
     // FIXME
     void postId;
-    void tagId;
+    void tagText;
     return of(void null);
+  }
+
+  public createPost(createPost: CreatePost): Observable<Post> {
+    // FIXME
+    return of({
+      id: 12354,
+      ...createPost,
+      upvotes: 54,
+      upvoted: true,
+      downvoted: false,
+      interactions: 2,
+      isRetired: false,
+      ownerId: 123,
+    }).pipe(delay(2000));
   }
 }

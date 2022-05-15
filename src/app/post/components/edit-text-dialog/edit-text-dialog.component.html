@@ -1,10 +1,10 @@
-<p mat-dialog-title class="mat-body">Edit description</p>
+<p mat-dialog-title class="mat-body">{{ data.dialogTitle }}</p>
 
 <mat-dialog-content>
-  <span class="mat-body-1 surface-medium-emphasis">{{ data.post.title }}</span>
+  <span class="mat-body-1 surface-medium-emphasis">{{ data.hint }}</span>
 
   <mat-form-field appearance="outline" color="primary">
-    <textarea matInput rows="5" [formControl]="newDescControl"></textarea>
+    <textarea matInput rows="5" [formControl]="newContentControl"></textarea>
   </mat-form-field>
 </mat-dialog-content>
 

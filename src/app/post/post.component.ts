@@ -1,14 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Post, Tag } from '../base/models/post.model';
+import { Post } from '../base/models/post.model';
 import { PostService } from '../base/services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable } from 'rxjs';
 import { UserService } from '../base/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  EditDescriptionData,
-  EditDescriptionDialogComponent,
-} from './components/edit-description-dialog/edit-description-dialog.component';
+import { EditContentData, EditTextDialogComponent } from './components/edit-text-dialog/edit-text-dialog.component';
 import { RetireDialogComponent } from './components/retire-dialog/retire-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { AddTagsDialogComponent } from './components/add-tags-dialog/add-tags-dialog.component';
@@ -42,12 +39,14 @@ export class PostComponent {
   }
 
   public editDescription(): void {
-    this.dialog.open<EditDescriptionDialogComponent, EditDescriptionData>(EditDescriptionDialogComponent, {
+    this.dialog.open<EditTextDialogComponent, EditContentData>(EditTextDialogComponent, {
       width: '500px',
       maxWidth: '100vw',
       data: {
-        post: this.post,
-        descriptionChanged: (newDesc: string) => {
+        dialogTitle: 'Edit description',
+        existingContent: this.post.description,
+        hint: this.post.title,
+        contentChanged: (newDesc: string) => {
           // FIXME
           void newDesc;
         },
@@ -100,10 +99,10 @@ export class PostComponent {
     });
   }
 
-  public removeTag(tag: Tag): void {
-    this.postService.removeTag(this.post.id, tag.id).subscribe({
+  public removeTag(tag: string): void {
+    this.postService.removeTag(this.post.id, tag).subscribe({
       next: () => {
-        const ref = this.matSnackBar.open(`Tag removed: #${tag.text}`, 'UNDO');
+        const ref = this.matSnackBar.open(`Tag removed: #${tag}`, 'UNDO');
         ref.onAction().subscribe(() => {
           // FIXME
         });

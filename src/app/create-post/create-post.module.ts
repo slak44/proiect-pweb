@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PostModule } from '../post/post.module';
 
 
 
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatRippleModule,
     MatRadioModule,
     ReactiveFormsModule,
+    PostModule,
   ],
 })
 export class CreatePostModule { }

@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { PostCategory, PostType } from '../base/models/post.model';
+import { CreatePost, PostCategory, PostType } from '../base/models/post.model';
 import { categoryIcons, categoryNames, postTypeNames } from '../post/post-texts';
 import { CreatePostService } from '../layout/services/create-post.service';
 import { FormControl } from '@angular/forms';
+import { PostService } from '../base/services/post.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pweb-create-post',
@@ -25,8 +28,13 @@ export class CreatePostComponent implements OnInit, OnDestroy {
 
   public readonly categoryControl: FormControl = new FormControl(PostCategory.MATERIALS);
 
+  public createPostValue?: CreatePost;
+
   constructor(
-    private readonly createPostService: CreatePostService
+    private readonly createPostService: CreatePostService,
+    private readonly postService: PostService,
+    private readonly matSnackBar: MatSnackBar,
+    private readonly router: Router,
   ) {
   }
 
@@ -40,5 +48,18 @@ export class CreatePostComponent implements OnInit, OnDestroy {
 
   public selectPost(type: PostType): void {
     this.postTypeSubject.next(type);
+  }
+
+  public updateCreatePost(createPost: CreatePost): void {
+    this.createPostValue = createPost;
+  }
+
+  public createPost(): void {
+    this.postService.createPost(this.createPostValue!).subscribe({
+      next: () => {
+        this.matSnackBar.open('Post created', undefined, { duration: 3000 });
+        void this.router.navigate(['/', 'dashboard']);
+      },
+    });
   }
 }

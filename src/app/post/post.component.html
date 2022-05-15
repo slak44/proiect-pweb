@@ -42,7 +42,7 @@
     <mat-chip-list *ngIf="post.tags.length > 0" class="tags-container">
       <mat-chip *ngFor="let tag of post.tags"
                 (removed)="removeTag(tag)">
-        <span class="mat-body-1">#{{ tag.text }}</span>
+        <span class="mat-body-1">#{{ tag }}</span>
         <mat-icon *ngIf="isOwned$ | async" matChipRemove>cancel</mat-icon>
       </mat-chip>
 

@@ -38,7 +38,11 @@
       </mat-radio-group>
     </div>
 
-    <pweb-large-button icon="add">
+    <pweb-post-builder [type]="postType"
+                       [category]="categoryControl.value"
+                       (postCompleted)="updateCreatePost($event)"></pweb-post-builder>
+
+    <pweb-large-button icon="add" *ngIf="createPostValue" (click)="createPost()">
       Create
     </pweb-large-button>
   </div>

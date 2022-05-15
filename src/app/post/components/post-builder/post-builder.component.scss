@@ -1,0 +1,70 @@
+@use "theme" as *;
+@use "colors" as *;
+
+:host {
+  display: block;
+  width: 400px;
+}
+
+.type-line {
+  @include overline;
+
+  margin-bottom: 8px;
+}
+
+.mat-card-header .mat-card-title {
+  margin-bottom: 0 !important;
+}
+
+.mat-card-avatar {
+  .mat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+  }
+}
+
+.select-image {
+  cursor: pointer;
+  height: 200px;
+  background-color: $black-selected;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .mat-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 36px;
+
+    margin-bottom: 8px;
+  }
+}
+
+.mat-flat-button {
+  margin-bottom: 16px;
+  text-transform: uppercase;
+
+  .mat-icon {
+    margin-right: 4px;
+  }
+}
+
+.edit-title {
+  margin-top: 16px;
+}
+
+.description {
+  margin-bottom: 16px;
+}
+
+.tags-container {
+  display: block;
+  margin-bottom: 16px;
+
+  .add-tags {
+    cursor: pointer;
+  }
+}

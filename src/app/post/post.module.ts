@@ -8,7 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
-import { EditDescriptionDialogComponent } from './components/edit-description-dialog/edit-description-dialog.component';
+import { EditTextDialogComponent } from './components/edit-text-dialog/edit-text-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,17 +16,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RetireDialogComponent } from './components/retire-dialog/retire-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { AddTagsDialogComponent } from './components/add-tags-dialog/add-tags-dialog.component';
+import { PostBuilderComponent } from './components/post-builder/post-builder.component';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
     PostComponent,
-    EditDescriptionDialogComponent,
+    EditTextDialogComponent,
     RetireDialogComponent,
     DeleteDialogComponent,
     AddTagsDialogComponent,
+    PostBuilderComponent,
   ],
   exports: [
-    PostComponent
+    PostComponent,
+    PostBuilderComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +45,7 @@ import { AddTagsDialogComponent } from './components/add-tags-dialog/add-tags-di
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatRippleModule,
   ],
 })
 export class PostModule {
