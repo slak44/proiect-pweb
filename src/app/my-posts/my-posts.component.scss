@@ -1,0 +1,64 @@
+@use "colors" as *;
+@use "theme" as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.mat-display-3 {
+  font-family: $light-font-family;
+  margin-bottom: 16px;
+}
+
+.mat-divider {
+  margin-bottom: 16px;
+}
+
+.listing {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-container {
+  display: flex;
+  gap: 32px;
+}
+
+.mat-display-1 {
+  margin-bottom: 16px;
+}
+
+.interactions-container {
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+
+  .mat-table {
+    width: 100%;
+  }
+
+  .text-cell {
+    span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .mat-column-phone {
+    flex: 0 0 200px;
+  }
+
+  .row-button {
+    cursor: pointer;
+    transition: 200ms ease-in-out background-color;
+
+    &:hover {
+      background-color: map-get($pweb-primary-palette, 50);
+    }
+  }
+}

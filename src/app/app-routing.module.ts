@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllPostsComponent } from './all-posts/all-posts.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { LoadingComponent } from './layout/components/loading/loading.component';
+import { MyPostsComponent } from './my-posts/my-posts.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'all-posts',
         component: AllPostsComponent,
+      },
+      {
+        path: 'my-posts',
+        component: MyPostsComponent,
       },
       {
         path: 'create-post',

@@ -28,12 +28,12 @@ export class PrivateLayoutComponent {
     {
       name: 'My Posts',
       icon: 'calendar_today',
-      routerLink: 'TODO',
+      routerLink: '/my-posts',
     },
     {
       name: 'All Posts',
       icon: 'event',
-      routerLink: 'all-posts',
+      routerLink: '/all-posts',
     },
     {
       name: 'Recent Posts',

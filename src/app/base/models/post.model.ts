@@ -20,7 +20,7 @@ export interface Post {
   upvotes: number;
   upvoted: boolean;
   downvoted: boolean;
-  interactions: number;
+  interactionCount: number;
   isRetired: boolean;
   tags: string[];
 }
@@ -34,7 +34,18 @@ export interface CreatePost {
   tags: string[];
 }
 
+export interface CreateInteraction {
+  text: string;
+  phone?: string;
+}
+
 export interface Interaction {
   text: string;
-  phone: string;
+  phone?: string;
+  email: string;
+  name: string;
+}
+
+export interface OwnedPost extends Post {
+  interactions: Interaction[];
 }

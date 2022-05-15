@@ -1,0 +1,37 @@
+<h1 class="mat-display-3">My Posts</h1>
+<mat-divider></mat-divider>
+
+<div class="listing">
+  <div class="post-container" *ngFor="let post of myPosts$ | async">
+    <pweb-post [post]="post"></pweb-post>
+
+    <div class="interactions-container">
+      <p class="mat-display-1">{{ tableTexts[post.type] }}</p>
+
+      <mat-table [dataSource]="post.interactions">
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.phone }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="text">
+          <mat-header-cell *matHeaderCellDef>Notes</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="text-cell">
+            <span>{{ element.text }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"
+                 mat-ripple
+                 class="row-button"
+                 (click)="openInteraction(row)"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

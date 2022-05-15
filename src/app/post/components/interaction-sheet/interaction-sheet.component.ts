@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { Interaction, PostType } from '../../../base/models/post.model';
+import { CreateInteraction, PostType } from '../../../base/models/post.model';
 import { interactionCountTexts, interactionTexts, postTypeNames } from '../../post-texts';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../../../base/services/post.service';
@@ -26,7 +26,7 @@ export class InteractionSheetComponent {
   public readonly interactionTexts = interactionTexts;
 
   public readonly interactionForm: FormGroup = this.formBuilder.group({
-    phone: ['', Validators.required],
+    phone: [''],
     text: ['', Validators.required],
   });
 
@@ -40,7 +40,7 @@ export class InteractionSheetComponent {
   }
 
   public submitInteraction(): void {
-    const interaction = this.interactionForm.value as Interaction;
+    const interaction = this.interactionForm.value as CreateInteraction;
 
     this.postService.interact(this.data.postId, interaction).subscribe({
       next: () => {
