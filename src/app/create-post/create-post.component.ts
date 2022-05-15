@@ -55,6 +55,7 @@ export class CreatePostComponent implements OnInit, OnDestroy {
   }
 
   public createPost(): void {
+    void this.router.navigate(['/', 'loading']);
     this.postService.createPost(this.createPostValue!).subscribe({
       next: () => {
         this.matSnackBar.open('Post created', undefined, { duration: 3000 });

@@ -11,12 +11,15 @@ import { UserSettingsDialogComponent } from './components/user-settings-dialog/u
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { LogoutDialogComponent } from './components/logout-dialog/logout-dialog.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
     PrivateLayoutComponent,
     UserSettingsDialogComponent,
     LogoutDialogComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { LogoutDialogComponent } from './components/logout-dialog/logout-dialog.
     MatButtonModule,
     MatDialogModule,
     MatDividerModule,
+    MatProgressBarModule,
   ],
   exports: [RouterModule],
 })

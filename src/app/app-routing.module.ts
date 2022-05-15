@@ -4,6 +4,7 @@ import { PrivateLayoutComponent } from './layout/components/private-layout/priva
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllPostsComponent } from './all-posts/all-posts.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { LoadingComponent } from './layout/components/loading/loading.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'create-post',
         component: CreatePostComponent,
+      },
+      {
+        path: 'loading',
+        component: LoadingComponent,
       }
     ],
   },
