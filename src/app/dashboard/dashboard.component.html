@@ -6,7 +6,9 @@
     <div class="post-section">
       <span class="mat-title">Your latest post</span>
 
-      <pweb-post *ngIf="latestPost$ | async as latestPost" [post]="latestPost"></pweb-post>
+      <pweb-post *ngIf="latestPost$ | async as latestPost"
+                 [post]="latestPost"
+                 (deleted)="refreshLatestPost()"></pweb-post>
     </div>
 
     <div class="statistics-section">

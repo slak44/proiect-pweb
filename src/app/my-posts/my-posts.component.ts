@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PostService } from '../base/services/post.service';
-import { Observable } from 'rxjs';
-import { Interaction, OwnedPost, PostType } from '../base/models/post.model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Interaction, OwnedPost, Post, PostType } from '../base/models/post.model';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { InteractionDataSheetComponent } from './components/interaction-data-sheet/interaction-data-sheet.component';
 
@@ -11,8 +11,10 @@ import { InteractionDataSheetComponent } from './components/interaction-data-she
   styleUrls: ['./my-posts.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyPostsComponent {
-  public readonly myPosts$: Observable<OwnedPost[]> = this.postService.getMyPosts();
+export class MyPostsComponent implements OnInit {
+  private readonly myPostsSubject: BehaviorSubject<OwnedPost[]> = new BehaviorSubject<OwnedPost[]>([]);
+
+  public readonly myPosts$: Observable<OwnedPost[]> = this.myPostsSubject;
 
   public readonly tableTexts: Record<PostType, string> = {
     [PostType.OFFER]: 'Contributors',
@@ -27,7 +29,15 @@ export class MyPostsComponent {
   ) {
   }
 
+  public ngOnInit(): void {
+    this.postService.getMyPosts().subscribe(myPosts => this.myPostsSubject.next(myPosts));
+  }
+
   public openInteraction(interaction: Interaction, type: PostType): void {
     this.bottomSheet.open(InteractionDataSheetComponent, { data: { interaction, type } });
+  }
+
+  public deletePost(deleted: Post): void {
+    this.myPostsSubject.next(this.myPostsSubject.value.filter(post => post !== deleted));
   }
 }

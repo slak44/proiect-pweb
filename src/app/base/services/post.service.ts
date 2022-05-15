@@ -101,14 +101,13 @@ export class PostService {
       ]
     };
 
-    return of([a, a, a, a, a, a, a, a, a]);
+    return of([{ ...a }, { ...a }, { ...a }, { ...a }, { ...a }, { ...a }, { ...a }, { ...a }, { ...a }]);
   }
 
-
-  public addTag(postId: number, tagText: string): Observable<void> {
+  public addTags(postId: number, tags: string[]): Observable<void> {
     // FIXME
     void postId;
-    void tagText;
+    void tags;
     return of(void null);
   }
 
@@ -116,6 +115,18 @@ export class PostService {
     // FIXME
     void postId;
     void tagText;
+    return of(void null);
+  }
+
+  public upvote(postId: number): Observable<void> {
+    // FIXME
+    void postId;
+    return of(void null);
+  }
+
+  public downvote(postId: number): Observable<void> {
+    // FIXME
+    void postId;
     return of(void null);
   }
 
@@ -137,6 +148,18 @@ export class PostService {
     // FIXME
     void postId;
     void interaction;
+    return of(void null);
+  }
+
+  public deletePost(postId: number): Observable<void> {
+    // FIXME
+    void postId;
+    return of(void null);
+  }
+
+  public retirePost(postId: number): Observable<void> {
+    // FIXME
+    void postId;
     return of(void null);
   }
 }

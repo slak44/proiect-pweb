@@ -19,11 +19,11 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="editDescription()">
+      <button mat-menu-item [disabled]="post.isRetired" (click)="editDescription()">
         <span>Edit {{ postTypeNames[post.type].toLowerCase() }} description</span>
         <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">edit</mat-icon>
       </button>
-      <button mat-menu-item (click)="retire()">
+      <button mat-menu-item [disabled]="post.isRetired" (click)="retire()">
         <span>Retire {{ postTypeNames[post.type].toLowerCase() }}</span>
         <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">check_circle_outline</mat-icon>
       </button>
@@ -43,10 +43,10 @@
       <mat-chip *ngFor="let tag of post.tags"
                 (removed)="removeTag(tag)">
         <span class="mat-body-1">#{{ tag }}</span>
-        <mat-icon *ngIf="isOwned$ | async" matChipRemove>cancel</mat-icon>
+        <mat-icon *ngIf="(isOwned$ | async) && !post.isRetired" matChipRemove>cancel</mat-icon>
       </mat-chip>
 
-      <mat-chip *ngIf="isOwned$ | async"
+      <mat-chip *ngIf="(isOwned$ | async) && !post.isRetired"
                 class="add-tags"
                 (click)="$event.stopPropagation(); addTags()"
                 [removable]="false">
@@ -66,21 +66,21 @@
   <mat-card-actions>
     <button class="interaction-button"
             mat-flat-button
-            [disabled]="isOwned$ | async"
+            [disabled]="(isOwned$ | async) || post.isRetired"
             (click)="interact()">
       {{ interactionTexts[post.type] }}
     </button>
 
     <button mat-icon-button
             [class.upvote]="post.upvoted || (isOwned$ | async)"
-            [disabled]="isOwned$ | async"
+            [disabled]="(isOwned$ | async) || post.isRetired"
             (click)="upvote()">
       <mat-icon [fontSet]="post.upvoted ? 'material-icons' : 'material-icons-outlined'">thumb_up</mat-icon>
     </button>
 
     <button mat-icon-button
             [class.downvote]="post.downvoted"
-            [disabled]="isOwned$ | async"
+            [disabled]="(isOwned$ | async) || post.isRetired"
             (click)="downvote()">
       <mat-icon [fontSet]="post.downvoted ? 'material-icons' : 'material-icons-outlined'">thumb_down</mat-icon>
     </button>

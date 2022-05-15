@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Post } from '../base/models/post.model';
 import { PostService } from '../base/services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,6 +21,7 @@ import { InteractionSheetComponent } from './components/interaction-sheet/intera
 })
 export class PostComponent {
   @Input() public post!: Post;
+  @Output() public deleted: EventEmitter<void> = new EventEmitter<void>();
 
   public readonly isOwned$: Observable<boolean> = combineLatest([
     this.userService.currentUser$.pipe(
@@ -73,7 +74,11 @@ export class PostComponent {
         return;
       }
 
-      // FIXME retire
+      this.postService.retirePost(this.post.id).subscribe({
+        next: () => {
+          this.matSnackBar.open('Post retired', undefined, { duration: 3000 });
+        },
+      });
     });
   }
 
@@ -88,7 +93,12 @@ export class PostComponent {
         return;
       }
 
-      // FIXME delete
+      this.postService.deletePost(this.post.id).subscribe({
+        next: () => {
+          this.deleted.emit();
+          this.matSnackBar.open('Post deleted', undefined, { duration: 3000 });
+        },
+      });
     });
   }
 
@@ -103,18 +113,30 @@ export class PostComponent {
         return;
       }
 
-      // FIXME add tags
+      this.postService.addTags(this.post.id, addedTags).subscribe({
+        next: () => {
+          // FIXME add the tags
+          const tagsText = addedTags.map(tag => `#${tag}`).join(', ');
+          const ref = this.matSnackBar.open(`Tags added: ${tagsText}`, 'UNDO', {
+            duration: 3000,
+          });
+          ref.onAction().subscribe(() => {
+            // FIXME undo add
+          });
+        },
+      });
     });
   }
 
   public removeTag(tag: string): void {
     this.postService.removeTag(this.post.id, tag).subscribe({
       next: () => {
+        // FIXME remove the tag
         const ref = this.matSnackBar.open(`Tag removed: #${tag}`, 'UNDO', {
           duration: 3000,
         });
         ref.onAction().subscribe(() => {
-          // FIXME
+          // FIXME undo remove
         });
       },
     });
@@ -130,10 +152,18 @@ export class PostComponent {
   }
 
   public upvote(): void {
-    // FIXME
+    this.postService.upvote(this.post.id).subscribe({
+      next: () => {
+        // FIXME
+      },
+    });
   }
 
   public downvote(): void {
-    // FIXME
+    this.postService.downvote(this.post.id).subscribe({
+      next: () => {
+        // FIXME
+      },
+    });
   }
 }
