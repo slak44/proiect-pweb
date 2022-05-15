@@ -10,7 +10,7 @@ export class UserService {
 
   public readonly currentUser$: Observable<User | null> = this.currentUserSubject;
 
-  public readonly isCurrentUserAdmin$: Observable<boolean> = of(true); // FIXME
+  public readonly isCurrentUserAdmin$: Observable<boolean> = of(false); // FIXME
 
   constructor() {
     // FIXME:

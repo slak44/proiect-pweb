@@ -81,6 +81,9 @@ export class PostComponent {
 
       this.postService.retirePost(this.post.id).subscribe({
         next: () => {
+          const newPost: Post = { ...this.post, isRetired: true };
+          this.updated.emit(newPost);
+
           this.matSnackBar.open('Post retired', undefined, { duration: 3000 });
         },
       });
@@ -162,10 +165,12 @@ export class PostComponent {
   public upvote(): void {
     this.postService.upvote(this.post.id).subscribe({
       next: () => {
+        const notUpvoted = this.post.downvoted ? this.post.upvotes + 2 : this.post.upvotes + 1
+
         const newPost: Post = {
           ...this.post,
-          upvotes: this.post.downvoted ? this.post.upvotes + 2 : this.post.upvotes + 1,
-          upvoted: true,
+          upvotes: this.post.upvoted ? this.post.upvotes - 1 : notUpvoted,
+          upvoted: !this.post.upvoted,
           downvoted: false,
         };
         this.updated.emit(newPost);
@@ -176,10 +181,12 @@ export class PostComponent {
   public downvote(): void {
     this.postService.downvote(this.post.id).subscribe({
       next: () => {
+        const notDownvoted = this.post.upvoted ? this.post.upvotes - 2 : this.post.upvotes - 1;
+
         const newPost: Post = {
           ...this.post,
-          upvotes: this.post.upvoted ? this.post.upvotes - 2 : this.post.upvotes - 1,
-          downvoted: true,
+          upvotes: this.post.downvoted ? this.post.upvotes + 1 : notDownvoted,
+          downvoted: !this.post.downvoted,
           upvoted: false,
         };
         this.updated.emit(newPost);

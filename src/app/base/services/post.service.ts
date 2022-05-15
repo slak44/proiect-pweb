@@ -43,8 +43,8 @@ export class PostService {
   }
 
   public getAllPosts(): Observable<Post[]> {
-    const a = {
-      id: 123,
+    const a = (id: number) => ({
+      id,
       category: PostCategory.FOOD,
       description: 'I am offering the thing in the picture. Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
         'sed do eiusmod tempor. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
@@ -63,9 +63,19 @@ export class PostService {
         'puckfutin',
         'hello',
       ],
-    };
+    });
 
-    return of([a, a, a, a, a, a, a, a, a]);
+    return of([
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000)
+    ]);
   }
 
   public getMyPosts(): Observable<OwnedPost[]> {
