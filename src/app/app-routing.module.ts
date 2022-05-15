@@ -41,6 +41,10 @@ const routes: Routes = [
       {
         path: 'account-settings',
         component: AccountSettingsComponent,
+      },
+      {
+        path: 'admin/user/:userId',
+        component: AccountSettingsComponent,
       }
     ],
   },

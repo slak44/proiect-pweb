@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User, UserType } from '../models/user.model';
 
 @Injectable({
@@ -27,7 +27,16 @@ export class UserService {
     // TODO
   }
 
-  public get currentUserSnapshot(): User | null {
-    return this.currentUserSubject.value;
+  public getUserById(id: number): Observable<User> {
+    // FIXME
+    return of({
+      id,
+      username: 'gives_stuff99',
+      email: 'gives_stuff99@example.com',
+      picture: '/assets/test.png',
+      type: UserType.USER,
+      isUserVerified: true,
+      isEnabled: true,
+    });
   }
 }

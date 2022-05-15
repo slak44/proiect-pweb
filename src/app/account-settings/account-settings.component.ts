@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../base/services/user.service';
-import { first, map, NEVER, Observable, switchMap } from 'rxjs';
+import { first, map, Observable, switchMap } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../base/models/user.model';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -20,9 +20,16 @@ export class AccountSettingsComponent implements OnInit {
     map(segments => segments.some(segment => segment.path === 'admin')),
   );
 
-  // FIXME never
+  private readonly adminUserId$: Observable<number> = this.activatedRoute.params.pipe(
+    map(({ userId }) => parseInt(userId as string, 10))
+  );
+
   public readonly targetUser$: Observable<User | null> = this.isAdminView$.pipe(
-    switchMap(isAdminView => isAdminView ? NEVER : this.userService.currentUser$),
+    switchMap(isAdminView =>
+      isAdminView
+        ? this.adminUserId$.pipe(switchMap(userId => this.userService.getUserById(userId)))
+        : this.userService.currentUser$
+    ),
   );
 
   public readonly accountDetailsForm: FormGroup = this.formBuilder.group({
