@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Post } from '../base/models/post.model';
 import { PostService } from '../base/services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map, Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { UserService } from '../base/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditContentData, EditTextDialogComponent } from './components/edit-text-dialog/edit-text-dialog.component';
@@ -22,8 +22,13 @@ import { InteractionSheetComponent } from './components/interaction-sheet/intera
 export class PostComponent {
   @Input() public post!: Post;
 
-  public readonly isOwned$: Observable<boolean> = this.userService.currentUser$.pipe(
-    map(currentUser => currentUser?.id === this.post.ownerId),
+  public readonly isOwned$: Observable<boolean> = combineLatest([
+    this.userService.currentUser$.pipe(
+      map(currentUser => currentUser?.id === this.post.ownerId),
+    ),
+    this.userService.isCurrentUserAdmin$,
+  ]).pipe(
+    map(([isOwned, isAdmin]) => isOwned || isAdmin),
   );
 
   public readonly categoryIcons = categoryIcons;
@@ -106,7 +111,7 @@ export class PostComponent {
     this.postService.removeTag(this.post.id, tag).subscribe({
       next: () => {
         const ref = this.matSnackBar.open(`Tag removed: #${tag}`, 'UNDO', {
-          duration: 3000
+          duration: 3000,
         });
         ref.onAction().subscribe(() => {
           // FIXME
