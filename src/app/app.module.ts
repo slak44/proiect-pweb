@@ -10,6 +10,7 @@ import { AllPostsModule } from './all-posts/all-posts.module';
 import { CreatePostModule } from './create-post/create-post.module';
 import { MyPostsModule } from './my-posts/my-posts.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
+import { AdminUsersModule } from './admin-users/admin-users.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AccountSettingsModule } from './account-settings/account-settings.modul
     CreatePostModule,
     MyPostsModule,
     AccountSettingsModule,
+    AdminUsersModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -11,14 +11,16 @@
 
 <mat-sidenav-container>
   <mat-sidenav mode="side" opened>
-    <div *ngFor="let route of routes"
-         class="sidenav-route"
-         mat-ripple
-         role="button"
-         [routerLink]="route.routerLink">
-      <mat-icon fontSet="material-icons-outlined">{{ route.icon }}</mat-icon>
-      <span>{{ route.name }}</span>
-    </div>
+    <ng-container *ngFor="let route of routes">
+      <div *ngIf="!route.isVisible$ || (route.isVisible$ | async)"
+           class="sidenav-route"
+           mat-ripple
+           role="button"
+           [routerLink]="route.routerLink">
+        <mat-icon fontSet="material-icons-outlined">{{ route.icon }}</mat-icon>
+        <span>{{ route.name }}</span>
+      </div>
+    </ng-container>
   </mat-sidenav>
 
   <mat-sidenav-content>

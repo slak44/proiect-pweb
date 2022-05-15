@@ -10,6 +10,8 @@ export class UserService {
 
   public readonly currentUser$: Observable<User | null> = this.currentUserSubject;
 
+  public readonly isCurrentUserAdmin$: Observable<boolean> = of(true); // FIXME
+
   constructor() {
     // FIXME:
     this.currentUserSubject.next({
@@ -38,5 +40,22 @@ export class UserService {
       isUserVerified: true,
       isEnabled: true,
     });
+  }
+
+  public getUserList(): Observable<User[]> {
+    // FIXME
+    const a = {
+      id: 123546,
+      username: 'gives_stuff99',
+      email: 'gives_stuff99@example.com',
+      picture: '/assets/test.png',
+      type: UserType.USER,
+      isUserVerified: true,
+      isEnabled: true,
+    };
+
+    return of([
+      a, a, a, a, a,
+    ]);
   }
 }

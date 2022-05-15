@@ -1,0 +1,25 @@
+<h1 class="mat-display-3">User Administration</h1>
+<mat-divider></mat-divider>
+
+<mat-table [dataSource]="users$">
+  <ng-container matColumnDef="user-id">
+    <mat-header-cell *matHeaderCellDef>User ID</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="username">
+    <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.username }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"
+           mat-ripple
+           class="row-button"
+           [routerLink]="['/', 'admin', 'user', row.id]"></mat-row>
+</mat-table>

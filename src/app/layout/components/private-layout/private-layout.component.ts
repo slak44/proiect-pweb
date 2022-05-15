@@ -10,6 +10,7 @@ interface SidenavRoute {
   name: string;
   icon: string;
   routerLink: string;
+  isVisible$?: Observable<boolean>;
 }
 
 @Component({
@@ -36,14 +37,15 @@ export class PrivateLayoutComponent {
       routerLink: '/all-posts',
     },
     {
-      name: 'Recent Posts',
-      icon: 'event_repeat',
-      routerLink: 'TODO',
-    },
-    {
       name: 'Information',
       icon: 'info',
       routerLink: 'TODO',
+    },
+    {
+      name: 'User Administration',
+      icon: 'manage_accounts',
+      routerLink: '/admin/user',
+      isVisible$: this.userService.isCurrentUserAdmin$
     },
   ];
 

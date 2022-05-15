@@ -7,6 +7,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { LoadingComponent } from './layout/components/loading/loading.component';
 import { MyPostsComponent } from './my-posts/my-posts.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 const routes: Routes = [
   {
@@ -43,9 +44,18 @@ const routes: Routes = [
         component: AccountSettingsComponent,
       },
       {
-        path: 'admin/user/:userId',
-        component: AccountSettingsComponent,
-      }
+        path: 'admin/user',
+        children: [
+          {
+            path: '',
+            component: AdminUsersComponent,
+          },
+          {
+            path: ':userId',
+            component: AccountSettingsComponent,
+          },
+        ],
+      },
     ],
   },
 ];
