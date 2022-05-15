@@ -86,8 +86,8 @@ export class PostService {
       name: 'Gigel Popescu'
     };
 
-    const a: OwnedPost = {
-      id: 123,
+    const a = (id: number) => ({
+      id,
       category: PostCategory.FOOD,
       description: 'I am offering the thing in the picture. Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
         'sed do eiusmod tempor. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
@@ -109,9 +109,19 @@ export class PostService {
       interactions: [
         i, i, i, i
       ]
-    };
+    });
 
-    return of([{ ...a }, { ...a }, { ...a }, { ...a }, { ...a }, { ...a }, { ...a }, { ...a }, { ...a }]);
+    return of([
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000),
+      a(Math.random() * 1000)
+    ]);
   }
 
   public addTags(postId: number, tags: string[]): Observable<void> {
