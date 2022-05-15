@@ -69,14 +69,13 @@ export class AccountSettingsComponent implements OnInit {
       first((user): user is User => !!user),
     ).subscribe(({ id, username, email, type }) => {
       this.accountDetailsForm.setValue({ username, email });
+      this.accountTypeControl.setValue(type);
 
       this.accountTypeControl.valueChanges.pipe(
         switchMap((userType: UserType) => this.userService.changeAccountType(id, userType)),
       ).subscribe(() => {
         this.matSnackBar.open(`User type changed`, undefined, { duration: 3000 });
       });
-
-      this.accountTypeControl.setValue(type);
     });
   }
 
