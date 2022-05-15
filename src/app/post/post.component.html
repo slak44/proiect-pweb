@@ -19,7 +19,7 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item [disabled]="post.isRetired" (click)="editDescription()">
+      <button mat-menu-item [disabled]="post.isRetired" (click)="tryEditDescription()">
         <span>Edit {{ postTypeNames[post.type].toLowerCase() }} description</span>
         <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">edit</mat-icon>
       </button>
@@ -48,7 +48,7 @@
 
       <mat-chip *ngIf="(isOwned$ | async) && !post.isRetired"
                 class="add-tags"
-                (click)="$event.stopPropagation(); addTags()"
+                (click)="$event.stopPropagation(); tryAddTags()"
                 [removable]="false">
         <mat-icon matChipAvatar>add</mat-icon>
         <span class="mat-body-1">Add tags</span>

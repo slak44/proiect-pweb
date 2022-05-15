@@ -44,7 +44,7 @@ export class InteractionSheetComponent {
 
     this.postService.interact(this.data.postId, interaction).subscribe({
       next: () => {
-        this.bottomSheetRef.dismiss();
+        this.bottomSheetRef.dismiss(true);
         const msg = `${postTypeNames[this.data.type]} ${interactionCountTexts[this.data.type]}`;
         this.matSnackBar.open(msg, undefined, { duration: 3000 });
       },

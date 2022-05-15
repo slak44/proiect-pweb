@@ -22,6 +22,7 @@ import { InteractionSheetComponent } from './components/interaction-sheet/intera
 export class PostComponent {
   @Input() public post!: Post;
   @Output() public deleted: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public updated: EventEmitter<Post> = new EventEmitter<Post>();
 
   public readonly isOwned$: Observable<boolean> = combineLatest([
     this.userService.currentUser$.pipe(
@@ -47,7 +48,14 @@ export class PostComponent {
   ) {
   }
 
-  public editDescription(): void {
+  private editDescription(newDescription: string): void {
+    this.postService.editDescription(this.post.id, newDescription).subscribe(() => {
+      const newPost: Post = { ...this.post, description: newDescription };
+      this.updated.emit(newPost);
+    });
+  }
+
+  public tryEditDescription(): void {
     this.dialog.open<EditTextDialogComponent, EditContentData>(EditTextDialogComponent, {
       width: '500px',
       maxWidth: '100vw',
@@ -55,10 +63,7 @@ export class PostComponent {
         dialogTitle: 'Edit description',
         existingContent: this.post.description,
         hint: this.post.title,
-        contentChanged: (newDesc: string) => {
-          // FIXME
-          void newDesc;
-        },
+        contentChanged: this.editDescription.bind(this)
       },
     });
   }
@@ -102,7 +107,19 @@ export class PostComponent {
     });
   }
 
-  public addTags(): void {
+  private addTags(addedTags: string[]): void {
+    this.postService.addTags(this.post.id, addedTags).subscribe({
+      next: () => {
+        const newPost: Post = { ...this.post, tags: [...this.post.tags, ...addedTags] };
+        this.updated.emit(newPost);
+
+        const tagsText = addedTags.map(tag => `#${tag}`).join(', ');
+        this.matSnackBar.open(`Tags added: ${tagsText}`, undefined, { duration: 3000 });
+      },
+    });
+  }
+
+  public tryAddTags(): void {
     const ref = this.dialog.open<AddTagsDialogComponent, unknown, string[]>(AddTagsDialogComponent, {
       width: '600px',
       maxWidth: '100vw',
@@ -113,48 +130,45 @@ export class PostComponent {
         return;
       }
 
-      this.postService.addTags(this.post.id, addedTags).subscribe({
-        next: () => {
-          // FIXME add the tags
-          const tagsText = addedTags.map(tag => `#${tag}`).join(', ');
-          const ref = this.matSnackBar.open(`Tags added: ${tagsText}`, 'UNDO', {
-            duration: 3000,
-          });
-          ref.onAction().subscribe(() => {
-            // FIXME undo add
-          });
-        },
-      });
+      this.addTags(addedTags);
     });
   }
 
-  public removeTag(tag: string): void {
-    this.postService.removeTag(this.post.id, tag).subscribe({
+  public removeTag(removed: string): void {
+    this.postService.removeTag(this.post.id, removed).subscribe({
       next: () => {
-        // FIXME remove the tag
-        const ref = this.matSnackBar.open(`Tag removed: #${tag}`, 'UNDO', {
-          duration: 3000,
-        });
-        ref.onAction().subscribe(() => {
-          // FIXME undo remove
-        });
+        const newPost: Post = { ...this.post, tags: this.post.tags.filter(tag => tag !== removed) };
+        this.updated.emit(newPost);
+
+        this.matSnackBar.open(`Tag removed: #${removed}`, undefined, { duration: 3000 });
       },
     });
   }
 
   public interact(): void {
-    this.bottomSheet.open(InteractionSheetComponent, {
+    this.bottomSheet.open<InteractionSheetComponent, unknown, boolean>(InteractionSheetComponent, {
       data: {
         type: this.post.type,
         postId: this.post.id,
       },
+    }).afterDismissed().subscribe(didInteract => {
+      if (didInteract) {
+        const newPost: Post = { ...this.post, interactionCount: this.post.interactionCount + 1 };
+        this.updated.emit(newPost);
+      }
     });
   }
 
   public upvote(): void {
     this.postService.upvote(this.post.id).subscribe({
       next: () => {
-        // FIXME
+        const newPost: Post = {
+          ...this.post,
+          upvotes: this.post.downvoted ? this.post.upvotes + 2 : this.post.upvotes + 1,
+          upvoted: true,
+          downvoted: false,
+        };
+        this.updated.emit(newPost);
       },
     });
   }
@@ -162,7 +176,13 @@ export class PostComponent {
   public downvote(): void {
     this.postService.downvote(this.post.id).subscribe({
       next: () => {
-        // FIXME
+        const newPost: Post = {
+          ...this.post,
+          upvotes: this.post.upvoted ? this.post.upvotes - 2 : this.post.upvotes - 1,
+          downvoted: true,
+          upvoted: false,
+        };
+        this.updated.emit(newPost);
       },
     });
   }

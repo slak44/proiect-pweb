@@ -162,4 +162,11 @@ export class PostService {
     void postId;
     return of(void null);
   }
+
+  public editDescription(postId: number, newDescription: string): Observable<void> {
+    // FIXME
+    void postId;
+    void newDescription;
+    return of(void null);
+  }
 }
