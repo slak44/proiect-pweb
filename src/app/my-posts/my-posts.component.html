@@ -30,7 +30,7 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"
                  mat-ripple
                  class="row-button"
-                 (click)="openInteraction(row)"></mat-row>
+                 (click)="openInteraction(row, post.type)"></mat-row>
       </mat-table>
     </div>
   </div>

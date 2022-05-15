@@ -5,10 +5,14 @@ import { MatDividerModule } from '@angular/material/divider';
 import { PostModule } from '../post/post.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatRippleModule } from '@angular/material/core';
+import { InteractionDataSheetComponent } from './components/interaction-data-sheet/interaction-data-sheet.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     MyPostsComponent,
+    InteractionDataSheetComponent,
   ],
   imports: [
     CommonModule,
@@ -16,6 +20,8 @@ import { MatRippleModule } from '@angular/material/core';
     PostModule,
     MatTableModule,
     MatRippleModule,
+    MatIconModule,
+    MatButtonModule,
   ],
 })
 export class MyPostsModule {

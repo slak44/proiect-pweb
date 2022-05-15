@@ -1,0 +1,29 @@
+<div class="heading">
+  <h1 class="mat-display-1">{{ data.interaction.name }}{{ titleTexts[data.type] }}</h1>
+
+  <button mat-icon-button (click)="dismiss()">
+    <mat-icon class="close-icon">close</mat-icon>
+  </button>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="text-row">
+  <span class="item">
+    Contact {{ data.interaction.name }}:
+  </span>
+
+  <span class="item">
+    <mat-icon fontSet="material-icons-outlined">phone</mat-icon>
+    {{ data.interaction.phone }}
+  </span>
+
+  <span class="item">
+    <mat-icon fontSet="material-icons-outlined">email</mat-icon>
+    <a class="email" href="mailto:{{ data.interaction.email }}">{{ data.interaction.email }}</a>
+  </span>
+</div>
+
+<div>
+  {{ data.interaction.text }}
+</div>

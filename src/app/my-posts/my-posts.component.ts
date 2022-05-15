@@ -3,6 +3,7 @@ import { PostService } from '../base/services/post.service';
 import { Observable } from 'rxjs';
 import { Interaction, OwnedPost, PostType } from '../base/models/post.model';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { InteractionDataSheetComponent } from './components/interaction-data-sheet/interaction-data-sheet.component';
 
 @Component({
   selector: 'pweb-my-posts',
@@ -26,7 +27,7 @@ export class MyPostsComponent {
   ) {
   }
 
-  public openInteraction(interaction: Interaction): void {
-
+  public openInteraction(interaction: Interaction, type: PostType): void {
+    this.bottomSheet.open(InteractionDataSheetComponent, { data: { interaction, type } });
   }
 }

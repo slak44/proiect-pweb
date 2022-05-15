@@ -50,4 +50,8 @@ export class InteractionSheetComponent {
       },
     });
   }
+
+  public dismiss(): void {
+    this.bottomSheetRef.dismiss();
+  }
 }
