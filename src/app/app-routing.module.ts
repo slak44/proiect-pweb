@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PrivateLayoutComponent } from './layout/components/private-layout/private-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllPostsComponent } from './all-posts/all-posts.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
         path: 'all-posts',
         component: AllPostsComponent,
       },
+      {
+        path: 'create-post',
+        component: CreatePostComponent,
+      }
     ],
   },
 ];

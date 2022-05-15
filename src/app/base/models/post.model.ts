@@ -1,6 +1,6 @@
 export enum PostType {
-  OFFER,
-  REQUEST
+  OFFER = 'OFFER',
+  REQUEST = 'REQUEST'
 }
 
 export enum PostCategory {

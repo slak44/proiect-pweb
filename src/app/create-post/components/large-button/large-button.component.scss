@@ -1,0 +1,43 @@
+@use "colors" as *;
+
+:host {
+  display: block;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 2px 4px 0 #00000033, 0 1px 10px 0 #0000001F, 0 4px 5px 0 #00000024;
+
+  padding: 32px;
+  gap: 16px;
+  min-width: 350px;
+
+  cursor: pointer;
+
+  transition: 200ms ease-in-out background-color;
+
+  .mat-icon {
+    $size: 80px;
+    height: $size;
+    width: $size;
+    font-size: $size;
+
+    transition: 200ms ease-in-out color;
+  }
+
+  .mat-display-1 {
+    margin: 0;
+  }
+
+  &:hover {
+    background-color: map-get($pweb-primary-palette, 50);
+
+    .mat-icon {
+      color: map-get($pweb-primary-palette, 900);
+    }
+  }
+}

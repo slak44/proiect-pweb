@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Post, PostCategory, PostType, Tag } from '../base/models/post.model';
+import { Post, Tag } from '../base/models/post.model';
 import { PostService } from '../base/services/post.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { map, Observable } from 'rxjs';
@@ -12,6 +12,7 @@ import {
 import { RetireDialogComponent } from './components/retire-dialog/retire-dialog.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { AddTagsDialogComponent } from './components/add-tags-dialog/add-tags-dialog.component';
+import { categoryIcons, categoryNames, interactionCountTexts, interactionTexts, postTypeNames } from './post-texts';
 
 @Component({
   selector: 'pweb-post',
@@ -26,32 +27,11 @@ export class PostComponent {
     map(currentUser => currentUser?.id === this.post.ownerId),
   );
 
-  public readonly categoryIcons: Record<PostCategory, string> = {
-    [PostCategory.FOOD]: 'fastfood',
-    [PostCategory.SHELTER]: 'cabin',
-    [PostCategory.MATERIALS]: 'inventory_2',
-  };
-
-  public readonly categoryNames: Record<PostCategory, string> = {
-    [PostCategory.FOOD]: 'Food',
-    [PostCategory.SHELTER]: 'Shelter',
-    [PostCategory.MATERIALS]: 'Materials',
-  };
-
-  public readonly postTypeNames: Record<PostType, string> = {
-    [PostType.OFFER]: 'Offer',
-    [PostType.REQUEST]: 'Request',
-  };
-
-  public readonly interactionTexts: Record<PostType, string> = {
-    [PostType.OFFER]: 'Accept',
-    [PostType.REQUEST]: 'Contribute',
-  };
-
-  public readonly interactionCountTexts: Record<PostType, string> = {
-    [PostType.OFFER]: 'accepted',
-    [PostType.REQUEST]: 'contributors',
-  };
+  public readonly categoryIcons = categoryIcons;
+  public readonly categoryNames = categoryNames;
+  public readonly postTypeNames = postTypeNames;
+  public readonly interactionTexts = interactionTexts;
+  public readonly interactionCountTexts = interactionCountTexts;
 
   constructor(
     private readonly postService: PostService,

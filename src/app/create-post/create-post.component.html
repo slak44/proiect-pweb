@@ -1,0 +1,60 @@
+<ng-container *ngIf="postType$ | async as postType else selectPostType">
+  <h1 class="mat-display-3">Create {{ postTypeNames[postType] }}</h1>
+  <mat-divider></mat-divider>
+
+  <div class="create-sections">
+    <div class="select-category">
+      <span class="mat-body-2">
+        Change {{ postTypeNames[postType] }} category
+      </span>
+
+      <mat-radio-group color="primary" [formControl]="categoryControl">
+        <mat-radio-button [value]="postCategory.MATERIALS">
+          <div class="radio-content">
+            <span>{{ categoryNames[postCategory.MATERIALS] }} {{ postTypeNames[postType] }}</span>
+            <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">
+              {{ categoryIcons[postCategory.MATERIALS] }}
+            </mat-icon>
+          </div>
+        </mat-radio-button>
+
+        <mat-radio-button [value]="postCategory.SHELTER">
+          <div class="radio-content">
+            <span>{{ categoryNames[postCategory.SHELTER] }} {{ postTypeNames[postType] }}</span>
+            <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">
+              {{ categoryIcons[postCategory.SHELTER] }}
+            </mat-icon>
+          </div>
+        </mat-radio-button>
+
+        <mat-radio-button [value]="postCategory.FOOD">
+          <div class="radio-content">
+            <span>{{ categoryNames[postCategory.FOOD] }} {{ postTypeNames[postType] }}</span>
+            <mat-icon class="surface-medium-emphasis" fontSet="material-icons-outlined">
+              {{ categoryIcons[postCategory.FOOD] }}
+            </mat-icon>
+          </div>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <pweb-large-button icon="add">
+      Create
+    </pweb-large-button>
+  </div>
+</ng-container>
+
+<ng-template #selectPostType>
+  <h1 class="mat-display-3">Create Post</h1>
+  <mat-divider></mat-divider>
+
+  <div class="select-type-container">
+    <pweb-large-button icon="send" (click)="selectPost(postType.OFFER)">
+      Create Offer
+    </pweb-large-button>
+
+    <pweb-large-button icon="inbox" (click)="selectPost(postType.REQUEST)">
+      Create Request
+    </pweb-large-button>
+  </div>
+</ng-template>

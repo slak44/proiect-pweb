@@ -7,6 +7,7 @@ import { LayoutModule } from './layout/layout.module';
 import { MatButtonModule } from '@angular/material/button';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AllPostsModule } from './all-posts/all-posts.module';
+import { CreatePostModule } from './create-post/create-post.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AllPostsModule } from './all-posts/all-posts.module';
     DashboardModule,
     MatButtonModule,
     AllPostsModule,
+    CreatePostModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

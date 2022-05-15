@@ -41,3 +41,8 @@ body {
     text-transform: capitalize;
   }
 }
+
+.mat-radio-label-content {
+  flex-grow: 1;
+  padding: 8px 16px;
+}
