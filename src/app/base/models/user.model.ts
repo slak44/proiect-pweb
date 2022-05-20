@@ -3,8 +3,8 @@ export enum UserType {
   ADMIN = 'ADMIN'
 }
 
-export interface User {
-  id: number;
+export interface AppUser {
+  id: string;
   username: string;
   picture?: string;
   email: string;

@@ -1,5 +1,7 @@
 # PwebFe
 
+Figma: https://www.figma.com/file/yii2Xl7epYLgzBqE4HelqP/Proiect-Pweb?node-id=4%3A0
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
 
 ## Development server

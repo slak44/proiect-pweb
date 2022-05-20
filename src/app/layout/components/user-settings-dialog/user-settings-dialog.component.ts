@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { User } from '../../../base/models/user.model';
+import { AppUser } from '../../../base/models/user.model';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { LogoutDialogComponent } from '../logout-dialog/logout-dialog.component';
 
@@ -12,7 +12,7 @@ import { LogoutDialogComponent } from '../logout-dialog/logout-dialog.component'
 export class UserSettingsDialogComponent {
   constructor(
     private readonly dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public readonly user: User,
+    @Inject(MAT_DIALOG_DATA) public readonly user: AppUser,
   ) {
   }
 

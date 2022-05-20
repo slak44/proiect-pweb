@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } fro
 import { UserService } from '../base/services/user.service';
 import { first, map, Observable, switchMap } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { User, UserType } from '../base/models/user.model';
+import { AppUser, UserType } from '../base/models/user.model';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -26,11 +26,11 @@ export class AccountSettingsComponent implements OnInit {
     map(segments => segments.some(segment => segment.path === 'admin')),
   );
 
-  private readonly adminUserId$: Observable<number> = this.activatedRoute.params.pipe(
-    map(({ userId }) => parseInt(userId as string, 10)),
+  private readonly adminUserId$: Observable<string> = this.activatedRoute.params.pipe(
+    map(({ userId }) => userId as string),
   );
 
-  public readonly targetUser$: Observable<User | null> = this.isAdminView$.pipe(
+  public readonly targetUser$: Observable<AppUser | null> = this.isAdminView$.pipe(
     switchMap(isAdminView =>
       isAdminView
         ? this.adminUserId$.pipe(switchMap(userId => this.userService.getUserById(userId)))
@@ -66,7 +66,7 @@ export class AccountSettingsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.targetUser$.pipe(
-      first((user): user is User => !!user),
+      first((user): user is AppUser => !!user),
     ).subscribe(({ id, username, email, type }) => {
       this.accountDetailsForm.setValue({ username, email });
       this.accountTypeControl.setValue(type);

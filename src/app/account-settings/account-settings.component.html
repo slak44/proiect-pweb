@@ -37,14 +37,6 @@
   </button>
 </form>
 
-<ng-container *ngIf="!(isAdminView$ | async)">
-  <mat-divider></mat-divider>
-
-  <h6 class="mat-title">Change Password</h6>
-
-  <!-- FIXME -->
-</ng-container>
-
 <ng-container *ngIf="isAdminView$ | async">
   <mat-divider></mat-divider>
 

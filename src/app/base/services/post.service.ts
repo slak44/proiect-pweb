@@ -26,7 +26,7 @@ export class PostService {
         'sed do eiusmod tempor. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
       imageUrl: '/assets/test-post.png',
       isRetired: false,
-      ownerId: 123,
+      ownerId: '123',
       type: PostType.OFFER,
       title: 'Offering free soup to people in this city',
       upvotes: 54,
@@ -50,7 +50,7 @@ export class PostService {
         'sed do eiusmod tempor. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
       imageUrl: '/assets/test-post.png',
       isRetired: false,
-      ownerId: 1221343,
+      ownerId: '1221343',
       type: PostType.OFFER,
       title: 'Offering free soup to people in this city',
       upvotes: 54,
@@ -93,7 +93,7 @@ export class PostService {
         'sed do eiusmod tempor. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
       imageUrl: '/assets/test-post.png',
       isRetired: false,
-      ownerId: 123,
+      ownerId: '123',
       type: PostType.OFFER,
       title: 'Offering free soup to people in this city',
       upvotes: 54,
@@ -160,7 +160,7 @@ export class PostService {
       downvoted: false,
       interactionCount: 2,
       isRetired: false,
-      ownerId: 123,
+      ownerId: '123',
     }).pipe(delay(2000));
   }
 

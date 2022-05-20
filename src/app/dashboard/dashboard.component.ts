@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UserService } from '../base/services/user.service';
 import { Observable, ReplaySubject, switchMap } from 'rxjs';
-import { User } from '../base/models/user.model';
+import { AppUser } from '../base/models/user.model';
 import { PostService } from '../base/services/post.service';
 import { Post } from '../base/models/post.model';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'pweb-dashboard',
@@ -14,7 +15,7 @@ import { Post } from '../base/models/post.model';
 export class DashboardComponent implements OnInit {
   private readonly refreshLatestSubject: ReplaySubject<void> = new ReplaySubject<void>(1);
 
-  public readonly currentUser$: Observable<User | null> = this.userService.currentUser$;
+  public readonly currentUser$: Observable<AppUser | null> = this.userService.currentUser$;
 
   public readonly latestPost$: Observable<Post> = this.refreshLatestSubject.pipe(
     switchMap(() => this.postService.getLatestPost()),
@@ -23,6 +24,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly postService: PostService,
+    private readonly authService: AuthService,
   ) {
   }
 
@@ -34,7 +36,7 @@ export class DashboardComponent implements OnInit {
     this.refreshLatestSubject.next();
   }
 
-  public updatePost(): void {
-    this.refreshLatestSubject.next();
+  public login(): void {
+    this.authService.loginWithRedirect();
   }
 }

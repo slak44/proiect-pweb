@@ -11,6 +11,8 @@ import { CreatePostModule } from './create-post/create-post.module';
 import { MyPostsModule } from './my-posts/my-posts.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
 import { AdminUsersModule } from './admin-users/admin-users.module';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,8 +30,35 @@ import { AdminUsersModule } from './admin-users/admin-users.module';
     MyPostsModule,
     AccountSettingsModule,
     AdminUsersModule,
+    HttpClientModule,
+    AuthModule.forRoot({
+      domain: 'dev-vlziad43.eu.auth0.com',
+      clientId: 'L8679lKaI2CFLXiJDsaJmmzTr39eBMqH',
+      audience: 'https://dev-vlziad43.eu.auth0.com/api/v2/',
+      scope: 'backend',
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: 'https://dev-vlziad43.eu.auth0.com/api/v2/*',
+            tokenOptions: {
+              audience: 'https://dev-vlziad43.eu.auth0.com/api/v2/',
+              scope: 'backend',
+            },
+          },
+          {
+            uri: 'http://localhost:8080/*',
+            tokenOptions: {
+              audience: 'https://dev-vlziad43.eu.auth0.com/api/v2/',
+              scope: 'backend',
+            },
+          },
+        ],
+      },
+    }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

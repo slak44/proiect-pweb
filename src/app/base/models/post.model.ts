@@ -11,7 +11,7 @@ export enum PostCategory {
 
 export interface Post {
   id: number;
-  ownerId: number;
+  ownerId: string;
   type: PostType;
   category: PostCategory;
   title: string;

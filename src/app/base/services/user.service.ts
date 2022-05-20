@@ -1,39 +1,43 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { User, UserType } from '../models/user.model';
+import { BehaviorSubject, first, Observable, of } from 'rxjs';
+import { AppUser, UserType } from '../models/user.model';
+import { AuthService, User } from '@auth0/auth0-angular';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  private readonly currentUserSubject: BehaviorSubject<AppUser | null> = new BehaviorSubject<AppUser | null>(null);
 
-  public readonly currentUser$: Observable<User | null> = this.currentUserSubject;
+  public readonly currentUser$: Observable<AppUser | null> = this.currentUserSubject;
 
   public readonly isCurrentUserAdmin$: Observable<boolean> = of(false); // FIXME
 
-  constructor() {
-    this.refreshCurrentUser();
-  }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly httpClient: HttpClient,
+  ) {
+    this.authService.user$.pipe(first((user): user is User => !!user)).subscribe((user) => {
+      this.currentUserSubject.next({
+        id: '123',
+        username: user.name!,
+        picture: user.picture,
+        isEnabled: true,
+        isUserVerified: true,
+        type: UserType.USER,
+        email: user.email!
+      });
 
-  public refreshCurrentUser(): void {
-    // FIXME:
-    this.currentUserSubject.next({
-      id: 123,
-      username: 'gives_stuff99',
-      email: 'gives_stuff99@example.com',
-      picture: '/assets/test.png',
-      type: UserType.USER,
-      isUserVerified: true,
-      isEnabled: true,
+      // this.httpClient.get('http://localhost:8080/edit-user/' + user.sub!).subscribe(console.log);
     });
   }
 
   public logout(): void {
-    // TODO
+    this.authService.logout({ returnTo: window.location.origin });
   }
 
-  public getUserById(id: number): Observable<User> {
+  public getUserById(id: string): Observable<AppUser> {
     // FIXME
     return of({
       id,
@@ -46,10 +50,10 @@ export class UserService {
     });
   }
 
-  public getUserList(): Observable<User[]> {
+  public getUserList(): Observable<AppUser[]> {
     // FIXME
     const a = {
-      id: 123546,
+      id: '123546',
       username: 'gives_stuff99',
       email: 'gives_stuff99@example.com',
       picture: '/assets/test.png',
@@ -63,28 +67,28 @@ export class UserService {
     ]);
   }
 
-  public changeAccountType(userId: number, type: UserType): Observable<void> {
+  public changeAccountType(userId: string, type: UserType): Observable<void> {
     // FIXME
     void userId;
     void type;
     return of(void null);
   }
 
-  public updateEnabledState(userId: number, enabled: boolean): Observable<void> {
+  public updateEnabledState(userId: string, enabled: boolean): Observable<void> {
     // FIXME
     void userId;
     void enabled;
     return of(void null);
   }
 
-  public updateVerifiedState(userId: number, verified: boolean): Observable<void> {
+  public updateVerifiedState(userId: string, verified: boolean): Observable<void> {
     // FIXME
     void userId;
     void verified;
     return of(void null);
   }
 
-  public updateUserDetails(userId: number, username: string, email: string, picture?: File): Observable<void> {
+  public updateUserDetails(userId: string, username: string, email: string, picture?: File): Observable<void> {
     // FIXME
     void username;
     void email;

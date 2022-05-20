@@ -8,11 +8,13 @@ import { LoadingComponent } from './layout/components/loading/loading.component'
 import { MyPostsComponent } from './my-posts/my-posts.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 const routes: Routes = [
   {
     path: '',
     component: PrivateLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
