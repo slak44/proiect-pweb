@@ -4,9 +4,9 @@ export enum PostType {
 }
 
 export enum PostCategory {
-  MATERIALS,
-  SHELTER,
-  FOOD
+  MATERIALS = 'MATERIALS',
+  SHELTER = 'SHELTER',
+  FOOD = 'FOOD'
 }
 
 export interface Post {

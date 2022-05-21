@@ -29,7 +29,7 @@ export class UserService {
         email: user.email!
       });
 
-      // this.httpClient.get('http://localhost:8080/edit-user/' + user.sub!).subscribe(console.log);
+      this.httpClient.get('http://localhost:8080/api/posts').subscribe(console.log);
     });
   }
 
