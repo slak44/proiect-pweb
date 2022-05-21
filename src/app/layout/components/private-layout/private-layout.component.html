@@ -16,6 +16,7 @@
            class="sidenav-route"
            mat-ripple
            role="button"
+           (click)="route.click ? route.click() : null"
            [routerLink]="route.routerLink">
         <mat-icon fontSet="material-icons-outlined">{{ route.icon }}</mat-icon>
         <span>{{ route.name }}</span>

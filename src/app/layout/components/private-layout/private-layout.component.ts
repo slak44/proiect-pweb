@@ -9,7 +9,8 @@ import { CreatePostService } from '../../services/create-post.service';
 interface SidenavRoute {
   name: string;
   icon: string;
-  routerLink: string;
+  routerLink?: string;
+  click?: () => void;
   isVisible$?: Observable<boolean>;
 }
 
@@ -39,13 +40,13 @@ export class PrivateLayoutComponent {
     {
       name: 'Information',
       icon: 'info',
-      routerLink: 'TODO',
+      click: () => window.location.href = 'https://ec.europa.eu/info/strategy/priorities-2019-2024/stronger-europe-world/eu-solidarity-ukraine/eu-assistance-ukraine/information-people-fleeing-war-ukraine_en',
     },
     {
       name: 'User Administration',
       icon: 'manage_accounts',
       routerLink: '/admin/user',
-      isVisible$: this.userService.isCurrentUserAdmin$
+      isVisible$: this.userService.isCurrentUserAdmin$,
     },
   ];
 
