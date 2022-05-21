@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, first, map, Observable, of, shareReplay, switchMap } from 'rxjs';
+import { BehaviorSubject, first, map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { AppUser, UserType } from '../models/user.model';
 import { AuthService, User } from '@auth0/auth0-angular';
 import { HttpClient } from '@angular/common/http';
