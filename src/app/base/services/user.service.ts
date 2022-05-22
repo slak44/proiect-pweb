@@ -39,9 +39,9 @@ export class UserService {
         map((appUser) => {
           this.currentUserSubject.next({
             ...appUser,
-            username: user.name!,
-            picture: user.picture,
-            email: user.email!,
+            username: appUser.username || user.name!,
+            picture: appUser.picture || user.picture,
+            email: appUser.email || user.email!,
           });
         })),
       ),
@@ -81,6 +81,10 @@ export class UserService {
   public updateUserDetails(userId: string, username: string, email: string, picture?: File): Observable<void> {
     const dataUrl = picture ? fileToDataUrl(picture) : '';
 
-    return this.httpClient.put<void>(`${environment.baseUrl}/api/users/${userId}`, { username, email, picture: dataUrl });
+    return this.httpClient.put<void>(`${environment.baseUrl}/api/users/${userId}`, {
+      username,
+      email,
+      picture: dataUrl,
+    });
   }
 }
