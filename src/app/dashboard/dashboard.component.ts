@@ -4,7 +4,6 @@ import { Observable, ReplaySubject, switchMap } from 'rxjs';
 import { AppUser } from '../base/models/user.model';
 import { PostService } from '../base/services/post.service';
 import { Post } from '../base/models/post.model';
-import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'pweb-dashboard',
@@ -24,7 +23,6 @@ export class DashboardComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly postService: PostService,
-    private readonly authService: AuthService,
   ) {
   }
 
@@ -34,9 +32,5 @@ export class DashboardComponent implements OnInit {
 
   public refreshLatestPost(): void {
     this.refreshLatestSubject.next();
-  }
-
-  public login(): void {
-    this.authService.loginWithRedirect();
   }
 }
