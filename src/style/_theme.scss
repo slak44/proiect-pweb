@@ -19,7 +19,7 @@ $pweb-typography: mat.define-typography-config();
 $light-font-family: 'Roboto Light', 'Helvetica Neue', sans-serif !important;
 
 @mixin overline {
-  font-family: map-get($pweb-typography, font-family);
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   text-transform: uppercase;
   font-size: 10px;
   font-weight: 500;
