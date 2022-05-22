@@ -39,6 +39,7 @@ export class UserService {
         map((appUser) => {
           this.currentUserSubject.next({
             ...appUser,
+            id: user.sub!,
             username: appUser.username || user.name!,
             picture: appUser.picture || user.picture,
             email: appUser.email || user.email!,
