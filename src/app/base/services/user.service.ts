@@ -25,26 +25,32 @@ export class UserService {
 
       return roles.includes(UserType.ADMIN);
     }),
-    shareReplay({ bufferSize: 1, refCount: false })
+    shareReplay({ bufferSize: 1, refCount: false }),
   );
 
   constructor(
     private readonly authService: AuthService,
     private readonly httpClient: HttpClient,
   ) {
-    this.authService.user$.pipe(first((user): user is User => !!user)).subscribe((user) => {
-      this.currentUserSubject.next({
-        id: '123',
-        username: user.name!,
-        picture: user.picture,
-        isEnabled: true,
-        isUserVerified: true,
-        type: UserType.USER,
-        email: user.email!
-      });
-
+    this.authService.user$.pipe(
+      first((user): user is User => !!user),
+      switchMap((user) => this.getCurrentUser().pipe(
+        map((appUser) => {
+          this.currentUserSubject.next({
+            ...appUser,
+            username: user.name!,
+            picture: user.picture,
+            email: user.email!,
+          });
+        })),
+      ),
+    ).subscribe(() => {
       // this.changeAccountType(user.sub!, UserType.ADMIN).subscribe(console.log);
     });
+  }
+
+  public getCurrentUser(): Observable<AppUser> {
+    return this.httpClient.get<AppUser>(`${environment.baseUrl}/api/users/current`);
   }
 
   public logout(): void {
@@ -64,17 +70,11 @@ export class UserService {
   }
 
   public updateEnabledState(userId: string, enabled: boolean): Observable<void> {
-    // FIXME
-    void userId;
-    void enabled;
-    return of(void null);
+    return this.httpClient.post<void>(`${environment.baseUrl}/api/users/${userId}/change-enabled/${enabled}`, {});
   }
 
   public updateVerifiedState(userId: string, verified: boolean): Observable<void> {
-    // FIXME
-    void userId;
-    void verified;
-    return of(void null);
+    return this.httpClient.post<void>(`${environment.baseUrl}/api/users/${userId}/change-verified/${verified}`, {});
   }
 
   public updateUserDetails(userId: string, username: string, email: string, picture?: File): Observable<void> {
