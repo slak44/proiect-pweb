@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, first, map, Observable, of, shareReplay, switchMap } from 'rxjs';
+import { BehaviorSubject, first, map, Observable, shareReplay, switchMap } from 'rxjs';
 import { AppUser, UserType } from '../models/user.model';
 import { AuthService, User } from '@auth0/auth0-angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { fileToDataUrl } from '../file-data-url';
 
 @Injectable({
   providedIn: 'root',
@@ -78,10 +79,8 @@ export class UserService {
   }
 
   public updateUserDetails(userId: string, username: string, email: string, picture?: File): Observable<void> {
-    // FIXME
-    void username;
-    void email;
-    void picture;
-    return of(void null);
+    const dataUrl = picture ? fileToDataUrl(picture) : '';
+
+    return this.httpClient.put<void>(`${environment.baseUrl}/api/users/${userId}`, { username, email, picture: dataUrl });
   }
 }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { CreateInteraction, CreatePost, OwnedPost, Post } from '../models/post.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { fileToDataUrl } from '../file-data-url';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +43,12 @@ export class PostService {
   }
 
   public createPost(createPost: CreatePost): Observable<Post> {
-    return this.httpClient.post<Post>(`${environment.baseUrl}/api/posts`, createPost);
+    const body = {
+      ...createPost,
+      image: createPost.image ? fileToDataUrl(createPost.image) : ''
+    };
+
+    return this.httpClient.post<Post>(`${environment.baseUrl}/api/posts`, body);
   }
 
   public interact(postId: number, interaction: CreateInteraction): Observable<void> {
