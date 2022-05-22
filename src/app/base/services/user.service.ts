@@ -45,9 +45,7 @@ export class UserService {
           });
         })),
       ),
-    ).subscribe(() => {
-      // this.changeAccountType(user.sub!, UserType.ADMIN).subscribe(console.log);
-    });
+    ).subscribe();
   }
 
   public getCurrentUser(): Observable<AppUser> {
