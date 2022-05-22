@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, map, Observable, of, switchMap } from 'rxjs';
 import { CreateInteraction, CreatePost, OwnedPost, Post } from '../models/post.model';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -43,12 +43,12 @@ export class PostService {
   }
 
   public createPost(createPost: CreatePost): Observable<Post> {
-    const body = {
-      ...createPost,
-      image: createPost.image ? fileToDataUrl(createPost.image) : ''
-    };
+    const image$ = createPost.image ? from(fileToDataUrl(createPost.image)) : of('');
 
-    return this.httpClient.post<Post>(`${environment.baseUrl}/api/posts`, body);
+    return image$.pipe(
+      map(image => ({ ...createPost, image })),
+      switchMap(body => this.httpClient.post<Post>(`${environment.baseUrl}/api/posts`, body)),
+    );
   }
 
   public interact(postId: number, interaction: CreateInteraction): Observable<void> {
