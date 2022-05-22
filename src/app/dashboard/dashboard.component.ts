@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
 
   public readonly currentUser$: Observable<AppUser | null> = this.userService.currentUser$;
 
-  public readonly latestPost$: Observable<Post> = this.refreshLatestSubject.pipe(
+  public readonly latestPost$: Observable<Post | null> = this.refreshLatestSubject.pipe(
     switchMap(() => this.postService.getLatestPost()),
   );
 

@@ -13,6 +13,7 @@ import { AccountSettingsModule } from './account-settings/account-settings.modul
 import { AdminUsersModule } from './admin-users/admin-users.module';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
             },
           },
           {
-            uri: 'http://localhost:8080/*',
+            uri: `${environment.baseUrl}/*`,
             tokenOptions: {
               audience: 'https://dev-vlziad43.eu.auth0.com/api/v2/',
               scope: 'backend',

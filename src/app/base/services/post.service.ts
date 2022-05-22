@@ -14,8 +14,10 @@ export class PostService {
   ) {
   }
 
-  public getLatestPost(): Observable<Post> {
-    return this.httpClient.get<Post>(`${environment.baseUrl}/api/posts/latest`);
+  public getLatestPost(): Observable<Post | null> {
+    return this.httpClient.get<Post>(`${environment.baseUrl}/api/posts/latest`).pipe(
+      map(post => !('type' in post) ? null : post),
+    );
   }
 
   public getAllPosts(): Observable<Post[]> {

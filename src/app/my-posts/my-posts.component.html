@@ -1,8 +1,10 @@
 <h1 class="mat-display-3">My Posts</h1>
 <mat-divider></mat-divider>
 
-<div class="listing">
-  <div class="post-container" *ngFor="let post of myPosts$ | async">
+<div class="listing" *ngIf="myPosts$ | async as myPosts">
+  <p *ngIf="myPosts.length === 0">You don't have any posts yet. Click create to get started.</p>
+
+  <div class="post-container" *ngFor="let post of myPosts">
     <pweb-post [post]="post" (updated)="updatePost($event)" (deleted)="deletePost(post)"></pweb-post>
 
     <div class="interactions-container">

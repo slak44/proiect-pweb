@@ -6,10 +6,14 @@
     <div class="post-section">
       <span class="mat-title">Your latest post</span>
 
-      <pweb-post *ngIf="latestPost$ | async as latestPost"
+      <pweb-post *ngIf="latestPost$ | async as latestPost else noPosts"
                  [post]="latestPost"
                  (updated)="refreshLatestPost()"
                  (deleted)="refreshLatestPost()"></pweb-post>
+
+      <ng-template #noPosts>
+        You don't have any posts yet. Click create to get started.
+      </ng-template>
     </div>
   </div>
 </ng-container>
