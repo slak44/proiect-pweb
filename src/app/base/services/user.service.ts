@@ -37,6 +37,10 @@ export class UserService {
       first((user): user is User => !!user),
       switchMap((user) => this.getCurrentUser().pipe(
         map((appUser) => {
+          if (appUser.email === null) {
+            this.updateUserDetails(user.sub!, user.name!, user.email!).subscribe();
+          }
+
           this.currentUserSubject.next({
             ...appUser,
             id: user.sub!,
